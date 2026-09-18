@@ -9,6 +9,7 @@ const VIEW_H = 420;
 const BAR_Y = 420;
 const NUM_W = 13 * SCALE;
 const NUM_H = 16 * SCALE;
+const CYCLE = 5;
 
 function uri(name) {
   const filePath = path.join(SPRITE_DIR, `${name}.png`);
@@ -36,6 +37,28 @@ function percent(value, rightX, y) {
   ${image("STTPRCNT", rightX, y, NUM_W, NUM_H)}`;
 }
 
+function discreteOpacity(windows, dur) {
+  const samples = new Set([0, dur]);
+  windows.forEach(([start, end]) => {
+    samples.add(start);
+    samples.add(end);
+  });
+  const times = [...samples].sort((a, b) => a - b);
+  const values = times.map((time) =>
+    windows.some(([start, end]) => time >= start && time < end) ? 1 : 0
+  );
+  const keyTimes = times.map((time) => (time / dur).toFixed(4)).join(";");
+  return `<animate attributeName="opacity" values="${values.join(";")}" keyTimes="${keyTimes}" calcMode="discrete" dur="${dur}s" repeatCount="indefinite"/>`;
+}
+
+function pistolSprite(name, width, height) {
+  const w = width * SCALE;
+  const h = height * SCALE;
+  const x = (WIDTH - w) / 2;
+  const y = BAR_Y - h + 8;
+  return { name, x, y, w, h };
+}
+
 async function fetchContributions() {
   const response = await fetch(
     `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=all`,
@@ -60,18 +83,25 @@ function renderDoom(ammo) {
   const faceX = 143 * SCALE;
   const faceY = 168 * SCALE;
   const armsX = 104 * SCALE;
-  const pistolW = 82 * SCALE;
-  const idleH = 92 * SCALE;
-  const fireH = 96 * SCALE;
-  const pistolX = (WIDTH - pistolW) / 2;
-  const idleY = BAR_Y - idleH + 8;
-  const fireY = BAR_Y - fireH + 8;
+  const idle = pistolSprite("PISGA0", 82, 92);
+  const fire = pistolSprite("PISGB0", 82, 96);
+  const cock = pistolSprite("PISGC0", 84, 100);
+  const mid = pistolSprite("PISGD0", 84, 106);
+  const reload = pistolSprite("PISGE0", 86, 120);
   const flashW = 32 * SCALE;
   const flashH = 30 * SCALE;
-  const flashX = pistolX + (pistolW - flashW) / 2 - 18;
-  const flashY = fireY - flashH * 0.22;
+  const flashX = fire.x + (fire.w - flashW) / 2 - 18;
+  const flashY = fire.y - flashH * 0.22;
   const phpW = 176;
   const phpH = 176;
+
+  const fireWin = [[0.0, 0.18]];
+  const cockDown = [[0.18, 0.32]];
+  const midDown = [[0.32, 0.46]];
+  const reloadWin = [[0.46, 0.72]];
+  const midUp = [[0.72, 0.86]];
+  const cockUp = [[0.86, 1.0]];
+  const idleWin = [[1.0, CYCLE]];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="500" viewBox="0 0 ${WIDTH} 500" role="img" aria-label="Freedoom HUD with ${ammo} GitHub contributions as ammo">
@@ -94,31 +124,45 @@ function renderDoom(ammo) {
   <rect width="${WIDTH}" height="500" fill="#000"/>
 
   <g clip-path="url(#view)">
+    ${image("SKY1", -40, -20, WIDTH + 80, 280, ' preserveAspectRatio="xMidYMid slice"')}
+    <polygon points="0,${VIEW_H} ${WIDTH},${VIEW_H} ${WIDTH},210 0,210" fill="url(#floor)"/>
     <g>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 6 2; 0 0; -6 2; 0 0" dur="0.8s" repeatCount="indefinite"/>
-      ${image("SKY1", -40, -20, WIDTH + 80, 280, ' preserveAspectRatio="xMidYMid slice"')}
-      <polygon points="0,${VIEW_H} ${WIDTH},${VIEW_H} ${WIDTH},210 0,210" fill="url(#floor)"/>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 5 -8; 0 5; -5 -6; 0 0" dur="3.2s" repeatCount="indefinite"/>
       <polygon points="0,70 0,${VIEW_H} 190,${VIEW_H} 240,210 240,90" fill="url(#brick)"/>
       <polygon points="${WIDTH},80 ${WIDTH},${VIEW_H} 610,${VIEW_H} 560,210 560,96" fill="url(#brick)"/>
       <polygon points="0,330 210,250 210,${VIEW_H} 0,${VIEW_H}" fill="url(#nukage)" opacity="0.92"/>
       <polygon points="${WIDTH},328 590,250 590,${VIEW_H} ${WIDTH},${VIEW_H}" fill="url(#nukage)" opacity="0.92"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="400 155; 410 140; 400 164; 390 144; 400 155" dur="3.2s" repeatCount="indefinite"/>
       <g>
-        <animateTransform attributeName="transform" type="translate" values="400 155; 392 148; 408 160; 400 155; 400 155" keyTimes="0;0.03;0.06;0.10;1" dur="10s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="-5; 5; -3; 4; -5" dur="3.2s" repeatCount="indefinite"/>
         ${image("php", -phpW / 2, -phpH / 2, phpW, phpH, ' preserveAspectRatio="xMidYMid meet"')}
       </g>
     </g>
   </g>
 
   <g>
-    <animateTransform attributeName="transform" type="translate" values="0 0; 8 10; 0 4; -8 10; 0 0" dur="0.5s" repeatCount="indefinite"/>
     <g opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.06;0.08;1" dur="10s" repeatCount="indefinite"/>
-      ${image("PISGA0", pistolX, idleY, pistolW, idleH)}
+      ${discreteOpacity(idleWin, CYCLE)}
+      ${image(idle.name, idle.x, idle.y, idle.w, idle.h)}
     </g>
     <g>
-      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.06;0.08;1" dur="10s" repeatCount="indefinite"/>
+      ${discreteOpacity(fireWin, CYCLE)}
       ${image("PISFA0", flashX, flashY, flashW, flashH)}
-      ${image("PISGB0", pistolX, fireY, pistolW, fireH)}
+      ${image(fire.name, fire.x, fire.y, fire.w, fire.h)}
+    </g>
+    <g opacity="0">
+      ${discreteOpacity([...cockDown, ...cockUp], CYCLE)}
+      ${image(cock.name, cock.x, cock.y, cock.w, cock.h)}
+    </g>
+    <g opacity="0">
+      ${discreteOpacity([...midDown, ...midUp], CYCLE)}
+      ${image(mid.name, mid.x, mid.y, mid.w, mid.h)}
+    </g>
+    <g opacity="0">
+      ${discreteOpacity(reloadWin, CYCLE)}
+      ${image(reload.name, reload.x, reload.y, reload.w, reload.h)}
     </g>
   </g>
 
