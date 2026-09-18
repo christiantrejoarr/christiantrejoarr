@@ -1,17 +1,16 @@
+<p align="left">
+  <img src="./assets/intro-title.svg" alt="FRONTEND DEVELOPER ANGULAR / REACT"/>
+</p>
+
 <div align="center">
 
 <img src="./assets/intro-bubble.svg" width="920" alt="Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code."/>
 
 <p>
-  <img src="./assets/me.png" width="170" align="left" alt="Christian Trejo"/>
-  <strong>How to reach me</strong>
-  <br/>
   <a href="https://www.linkedin.com/in/christian-trejo-arroyo/">
     <img src="./assets/stack/linkedin.svg" width="96" height="118" alt="LinkedIn"/>
   </a>
 </p>
-
-<br clear="all"/>
 
 <p><strong>Languages & Frameworks I code in</strong></p>
 

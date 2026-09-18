@@ -6,6 +6,30 @@ const font = fs.existsSync(fontPath)
   ? fs.readFileSync(fontPath).toString("base64")
   : "";
 
+const fontFace = font
+  ? `<style>
+    @font-face {
+      font-family: "Press Start 2P";
+      src: url("data:font/ttf;base64,${font}") format("truetype");
+    }
+    text { font-smooth: never; -webkit-font-smoothing: none; }
+  </style>`
+  : "";
+
+const title = "FRONTEND DEVELOPER ANGULAR / REACT";
+const titleSize = 16;
+const titleX = 4;
+const titleY = 26;
+const titleW = title.length * 16 + 40;
+const titleSvg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${titleW}" height="36" viewBox="0 0 ${titleW} 36">
+  <defs>
+    ${fontFace}
+  </defs>
+  <text x="${titleX}" y="${titleY}" font-family="Press Start 2P, Courier New, monospace" font-size="${titleSize}" fill="#ffffff">${title} <tspan fill="#ffffff">&#9608;<animate attributeName="opacity" values="1;0;1" dur="0.4s" repeatCount="indefinite"/></tspan></text>
+</svg>
+`;
+
 const lines = [
   "* Fake profile!!! I'm actually",
   "  Julian Casablancas the lead",
@@ -19,8 +43,12 @@ const charW = 16;
 const lineH = 32;
 const charDur = 0.045;
 const pause = 1.6;
-const textX = 72;
-const textY = 86;
+const boxX = 58;
+const boxY = 20;
+const boxW = 848;
+const boxH = 228;
+const textX = boxX + 36;
+const textY = boxY + 66;
 
 const glyphs = [];
 let elapsed = 0;
@@ -66,24 +94,25 @@ cursorTimes.push("1");
 cursorX.push(cursorX[cursorX.length - 1]);
 cursorY.push(cursorY[cursorY.length - 1]);
 
-const fontFace = font
-  ? `<style>
-    @font-face {
-      font-family: "Press Start 2P";
-      src: url("data:font/ttf;base64,${font}") format("truetype");
-    }
-    text { font-smooth: never; -webkit-font-smoothing: none; }
-  </style>`
-  : "";
+const cy = boxY + 72;
+const tipX = 6;
+const baseX = boxX + 8;
+const half = 32;
+const innerTipX = 18;
+const innerHalf = 22;
 
-const svg = `<?xml version="1.0" encoding="UTF-8"?>
+const bubbleSvg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="920" height="268" viewBox="0 0 920 268">
   <defs>
     ${fontFace}
   </defs>
-  <rect x="36" y="20" width="848" height="228" fill="#ffffff"/>
-  <rect x="42" y="26" width="836" height="216" fill="#000000"/>
-  <rect x="48" y="32" width="824" height="204" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="${boxX}" y="${boxY}" width="${boxW}" height="${boxH}" fill="#ffffff"/>
+  <rect x="${boxX + 6}" y="${boxY + 6}" width="${boxW - 12}" height="${boxH - 12}" fill="#000000"/>
+  <polygon points="${tipX},${cy} ${baseX},${cy - half} ${baseX},${cy + half}" fill="#ffffff"/>
+  <polygon points="${innerTipX},${cy} ${baseX + 2},${cy - innerHalf} ${baseX + 2},${cy + innerHalf}" fill="#000000"/>
+  <rect x="${boxX + 12}" y="${boxY + 12}" width="${boxW - 24}" height="${boxH - 24}" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="${boxX + 10}" y="${cy - innerHalf + 4}" width="8" height="${innerHalf * 2 - 8}" fill="#000000"/>
+  <polyline points="${baseX + 12},${cy - innerHalf + 2} ${innerTipX + 4},${cy} ${baseX + 12},${cy + innerHalf - 2}" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="miter"/>
   ${textNodes}
   <rect width="14" height="16" fill="#ffffff" x="${glyphs[0].x + charW}" y="${glyphs[0].y - 16}">
     <animate attributeName="x" values="${cursorX.join(";")}" keyTimes="${cursorTimes.join(";")}" calcMode="discrete" dur="${total.toFixed(3)}s" repeatCount="indefinite"/>
@@ -93,5 +122,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
 </svg>
 `;
 
-fs.writeFileSync(path.join(__dirname, "..", "assets", "intro-bubble.svg"), svg);
-console.log(`intro-bubble.svg listo (${total.toFixed(1)}s)`);
+const outDir = path.join(__dirname, "..", "assets");
+fs.writeFileSync(path.join(outDir, "intro-title.svg"), titleSvg);
+fs.writeFileSync(path.join(outDir, "intro-bubble.svg"), bubbleSvg);
+console.log(`intro-title.svg e intro-bubble.svg listos (${total.toFixed(1)}s)`);
