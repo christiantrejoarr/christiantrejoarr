@@ -35,14 +35,6 @@
 ---
 
 
-
-<img src="https://komarev.com/ghpvc/?username=christiantrejoarr&style=pixel" width="1" height="1" alt=""/>
-<img src="./assets/thermometer.svg" width="240" alt="Termómetro de visitas reales"/>
-
-
-
----
-
 ## Tech stack:
 
 <table>
