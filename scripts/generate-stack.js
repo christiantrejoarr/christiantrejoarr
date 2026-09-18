@@ -175,12 +175,22 @@ function existingDataUri(id) {
   return match ? match[1] : null;
 }
 
+function escapeXml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function renderLogo({ id, name, href, dataUri, begin, dur }) {
   const t = `dur="${dur}s" begin="${begin}s" repeatCount="indefinite"`;
+  const safeName = escapeXml(name);
+  const safeHref = escapeXml(href);
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="118" viewBox="0 0 96 118" role="img" aria-label="${name}">
-  <title>${name}</title>
-  <a href="${href}" target="_blank" rel="noopener noreferrer">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="118" viewBox="0 0 96 118" role="img" aria-label="${safeName}">
+  <title>${safeName}</title>
+  <a href="${safeHref}" target="_blank" rel="noopener noreferrer">
     <rect width="96" height="118" fill="transparent"/>
     <g transform="translate(48 40)">
       <g>
@@ -224,7 +234,7 @@ function renderLogo({ id, name, href, dataUri, begin, dur }) {
                   values="1 1;1 1;1.55 0.32;0.78 1.28;1.18 0.78;0.92 1.1;1.04 0.94;1 1;1 1;1 1"
                   keyTimes="0;0.185;0.228;0.252;0.272;0.288;0.300;0.314;0.78;1"
                   ${t}/>
-                <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="0" y="0" text-anchor="middle">${name}</text>
+                <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="0" y="0" text-anchor="middle">${safeName}</text>
               </g>
             </g>
           </g>
