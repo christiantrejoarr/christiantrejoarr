@@ -316,90 +316,158 @@ function phpHitFx(cycle) {
     </g>`;
 }
 
-function isoDate(date) {
-  return date.toISOString().slice(0, 10);
+function escapeXml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
-function lastYearCells(days) {
-  const byDate = new Map((days || []).map((day) => [day.date, day]));
-  const dates = [...byDate.keys()].sort();
-  if (!dates.length) return { weekCount: 0, cells: [] };
-  const first = new Date(`${dates[0]}T00:00:00Z`);
-  const last = new Date(`${dates[dates.length - 1]}T00:00:00Z`);
-  const mondayOffset = (first.getUTCDay() + 6) % 7;
-  const start = new Date(first);
-  start.setUTCDate(start.getUTCDate() - mondayOffset);
-  const weekCount = Math.floor((last - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
-  const cells = [];
-  for (let week = 0; week < weekCount; week += 1) {
-    for (let dow = 0; dow < 7; dow += 1) {
-      const date = new Date(start);
-      date.setUTCDate(start.getUTCDate() + week * 7 + dow);
-      if (date < first || date > last) continue;
-      const key = isoDate(date);
-      const hit = byDate.get(key);
-      cells.push({
-        week,
-        dow,
-        count: Number(hit?.count || 0),
-        level: Number(hit?.level || 0),
-      });
+function mulberry32(seed) {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function matrixRain(x, y, w, h) {
+  const glyphs = [..."01ABCDEF#$%*+=アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789"];
+  const colW = 11;
+  const lineH = 11;
+  const cols = Math.max(8, Math.floor(w / colW));
+  const rows = Math.ceil(h / lineH) + 6;
+  const rng = mulberry32(0x4d4711);
+  const columns = [];
+  for (let col = 0; col < cols; col += 1) {
+    const dur = (2.2 + rng() * 3.6).toFixed(2);
+    const delay = (-rng() * 4).toFixed(2);
+    const stream = [];
+    for (let row = 0; row < rows; row += 1) {
+      const ch = glyphs[Math.floor(rng() * glyphs.length)];
+      const head = row === rows - 1 || rng() > 0.88;
+      const fill = head ? "#d8ffd8" : "#00e64d";
+      const opacity = head ? 0.95 : (0.16 + rng() * 0.5).toFixed(2);
+      const flicker =
+        rng() > 0.65
+          ? `<animate attributeName="opacity" values="${opacity};0.08;0.9;${opacity}" dur="${(0.12 + rng() * 0.28).toFixed(2)}s" repeatCount="indefinite"/>`
+          : "";
+      stream.push(
+        `<text x="0" y="${(row + 1) * lineH}" fill="${fill}" opacity="${opacity}">${escapeXml(ch)}${flicker}</text>`
+      );
     }
+    const stack = stream.join("");
+    const shift = rows * lineH;
+    columns.push(`<g transform="translate(${(x + col * colW + 1).toFixed(1)} ${y})">
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 ${-shift}; 0 0" dur="${dur}s" begin="${delay}s" repeatCount="indefinite"/>
+        ${stack}
+        <g transform="translate(0 ${shift})">${stack}</g>
+      </g>
+    </g>`);
   }
-  return { weekCount, cells };
+  return `<g font-family="Courier New, Lucida Console, monospace" font-size="10">
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#000800"/>
+    ${columns.join("")}
+  </g>`;
 }
 
-function contributionSky(days, wallL, wallR, ceilY, horizon, skyPad) {
+function parseGithubCalendar(html) {
+  const totalMatch = html.match(
+    /js-contribution-activity-description[\s\S]*?(\d+)\s+contributions/
+  );
+  const months = [
+    ...html.matchAll(
+      /ContributionCalendar-label" colspan="(\d+)"[\s\S]*?aria-hidden="true"[^>]*>([^<]+)/g
+    ),
+  ].map((match) => ({
+    span: Number(match[1]),
+    label: match[2].trim(),
+  }));
+  const cells = [];
+  const cellRe =
+    /data-date="(\d{4}-\d{2}-\d{2})" id="contribution-day-component-(\d+)-(\d+)" data-level="(\d+)"[\s\S]*?<tool-tip[^>]*>([^<]+)/g;
+  let match = cellRe.exec(html);
+  while (match) {
+    const countMatch = match[5].match(/^(\d+)/);
+    cells.push({
+      date: match[1],
+      dow: Number(match[2]),
+      week: Number(match[3]),
+      level: Number(match[4]),
+      count: countMatch ? Number(countMatch[1]) : 0,
+    });
+    match = cellRe.exec(html);
+  }
+  if (!cells.length) {
+    throw new Error("No pude leer el calendario de GitHub");
+  }
+  const counted = cells.reduce((sum, cell) => sum + cell.count, 0);
+  const ammo = Number(totalMatch?.[1]);
+  return {
+    ammo: Number.isFinite(ammo) ? ammo : counted,
+    months,
+    cells,
+    weekCount: Math.max(...cells.map((cell) => cell.week)) + 1,
+  };
+}
+
+function contributionSky(calendar, wallL, wallR, ceilY, horizon, pad = 56) {
   const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
-  const x = wallL - skyPad;
-  const y = ceilY - skyPad;
-  const w = wallR - wallL + skyPad * 2;
-  const h = horizon - ceilY + skyPad * 2;
-  const calendar = lastYearCells(days);
-  const weeks = Math.max(calendar.weekCount, 53);
+  const weeks = Math.max(calendar.weekCount, 1);
   const rows = 7;
-  const gap = 1.15;
-  const margin = 12;
+  const gap = 1.2;
+  const margin = 10;
+  const labelH = 12;
   const graphW = wallR - wallL - margin * 2;
   const cell = (graphW - gap * (weeks - 1)) / weeks;
   const graphH = cell * rows + gap * (rows - 1);
   const gx = wallL + margin;
-  const gy = ceilY + Math.max(8, (horizon - ceilY - graphH) / 2);
+  const gy =
+    ceilY + labelH + Math.max(4, (horizon - ceilY - labelH - graphH) / 2);
+  let weekCursor = 0;
+  const monthTexts = calendar.months
+    .map((month) => {
+      const x = gx + weekCursor * (cell + gap);
+      weekCursor += month.span;
+      return `<text x="${x.toFixed(2)}" y="${(gy - 4).toFixed(2)}" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="8" fill="#8b949e">${month.label}</text>`;
+    })
+    .join("");
   const squares = calendar.cells
     .map((item) => {
       const cx = gx + item.week * (cell + gap);
       const cy = gy + item.dow * (cell + gap);
       const fill = colors[item.level] || colors[0];
-      const pulse =
-        item.level >= 3
-          ? `<animate attributeName="opacity" values="1;0.72;1" dur="${2.2 + (item.week % 4) * 0.25}s" repeatCount="indefinite"/>`
-          : "";
-      return `<rect x="${cx.toFixed(2)}" y="${cy.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" rx="1" fill="${fill}">${pulse}</rect>`;
+      return `<rect x="${cx.toFixed(2)}" y="${cy.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" rx="1" fill="${fill}"/>`;
     })
     .join("");
   return `<g>
-      <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#010409"/>
+      ${matrixRain(wallL - pad, ceilY - pad, wallR - wallL + pad * 2, horizon - ceilY + pad * 2)}
+      ${monthTexts}
       ${squares}
     </g>`;
 }
 
 async function fetchContributions() {
   const response = await fetch(
-    `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`,
-    { headers: { "User-Agent": "christiantrejoarr-doom-hud" } }
+    `https://github.com/users/${USERNAME}/contributions`,
+    {
+      headers: {
+        "User-Agent": "christiantrejoarr-doom-hud",
+        Accept: "text/html",
+      },
+    }
   );
   if (!response.ok) {
     throw new Error(`No pude leer contribuciones (${response.status})`);
   }
-  const data = await response.json();
-  const ammo = Number(data.total?.lastYear);
-  if (!Number.isFinite(ammo)) {
-    throw new Error("El total de contribuciones no es valido");
-  }
-  return { ammo, days: data.contributions || [] };
+  return parseGithubCalendar(await response.text());
 }
 
-function renderDoom(ammo, days) {
+function renderDoom(calendar) {
+  const ammo = calendar.ammo;
   const ammoY = 171 * SCALE;
   const faceX = 145 * SCALE;
   const faceY = 168 * SCALE;
@@ -422,7 +490,6 @@ function renderDoom(ammo, days) {
   const horizon = 280;
   const ceilY = 115;
   const vanishY = (ceilY + horizon) / 2;
-  const skyPad = 80;
 
   const fireWin = [[0.0, 0.05]];
   const cockDown = [[0.05, 0.10]];
@@ -467,6 +534,9 @@ function renderDoom(ammo, days) {
     <clipPath id="clipRight">
       <polygon points="${WIDTH + OVERSCAN},-${OVERSCAN} ${WIDTH},0 ${wallR},${ceilY} ${wallR},${horizon} ${WIDTH},${VIEW_H} ${WIDTH + OVERSCAN},${VIEW_H + OVERSCAN}"/>
     </clipPath>
+    <clipPath id="clipSky">
+      <polygon points="${wallL - 56},${ceilY - 56} ${wallR + 56},${ceilY - 56} ${wallR + 56},${horizon + 56} ${wallL - 56},${horizon + 56}"/>
+    </clipPath>
     <clipPath id="clipSkills">
       <rect x="${276 * SCALE}" y="${BAR_Y + 3 * SCALE}" width="${42 * SCALE}" height="${26 * SCALE}"/>
     </clipPath>
@@ -475,9 +545,8 @@ function renderDoom(ammo, days) {
   <rect width="${WIDTH}" height="500" fill="#000"/>
 
   <g clip-path="url(#view)">
-    <g>
-      <animateTransform attributeName="transform" type="translate" values="0 -16; 0 14; 0 -16" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
-      ${contributionSky(days, wallL, wallR, ceilY, horizon, skyPad)}
+    <g clip-path="url(#clipSky)">
+      ${contributionSky(calendar, wallL, wallR, ceilY, horizon)}
     </g>
     <g>
       <animateTransform attributeName="transform" type="translate" values="0 -16; 0 14; 0 -16" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
@@ -563,11 +632,13 @@ function renderDoom(ammo, days) {
 }
 
 async function main() {
-  const { ammo, days } = await fetchContributions();
+  const calendar = await fetchContributions();
   const outputPath = path.join(__dirname, "..", "assets", "doom-play.svg");
-  fs.writeFileSync(outputPath, renderDoom(ammo, days), "utf8");
-  const filled = (days || []).filter((day) => Number(day.count) > 0).length;
-  console.log(`DOOM HUD actualizado: AMMO = ${ammo}, dias activos = ${filled}`);
+  fs.writeFileSync(outputPath, renderDoom(calendar), "utf8");
+  const filled = calendar.cells.filter((cell) => cell.count > 0).length;
+  console.log(
+    `DOOM HUD actualizado: AMMO = ${calendar.ammo}, dias activos = ${filled}, semanas = ${calendar.weekCount}`
+  );
 }
 
 main().catch((error) => {

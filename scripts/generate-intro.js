@@ -43,6 +43,8 @@ const headings = [
   ["contact-title.svg", "WAYS TO REACH ME"],
   ["stack-title.svg", "LANGUAGES & FRAMEWORKS I CODE IN"],
   ["contributions-title.svg", "MY CONTRIBUTIONS"],
+  ["stats-title.svg", "GITHUB ENGINEERING STATS"],
+  ["analytics-title.svg", "CONTRIBUTION ANALYTICS"],
 ];
 
 const lines = [
@@ -111,23 +113,43 @@ cursorY.push(cursorY[cursorY.length - 1]);
 
 const cy = boxY + 72;
 const tipX = 6;
-const baseX = boxX + 8;
 const half = 32;
-const innerTipX = 18;
-const innerHalf = 22;
+const OUTER_BORDER = 6;
+const INNER_BORDER = 3;
+
+function bubblePath(x, y, w, h, tailTipX, tailHalf) {
+  const n = (value) => Number(value.toFixed(3));
+  return `M${n(x)},${n(y)}h${n(w)}v${n(h)}h${n(-w)}V${n(cy + tailHalf)}L${n(tailTipX)},${n(cy)}L${n(x)},${n(cy - tailHalf)}Z`;
+}
+
+function insetBubble(inset) {
+  const width = boxX - tipX;
+  const length = Math.hypot(width, half);
+  const tipInset = (inset * length) / half;
+  return {
+    x: boxX + inset,
+    y: boxY + inset,
+    w: boxW - inset * 2,
+    h: boxH - inset * 2,
+    tipX: tipX + tipInset,
+    half: (half / width) * (width + inset - tipInset),
+  };
+}
+
+const outer = { x: boxX, y: boxY, w: boxW, h: boxH, tipX, half };
+const fill = insetBubble(OUTER_BORDER);
+const innerLine = insetBubble(OUTER_BORDER + INNER_BORDER);
+const innerFill = insetBubble(OUTER_BORDER + INNER_BORDER * 2);
 
 const bubbleSvg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="920" height="268" viewBox="0 0 920 268">
   <defs>
     ${fontFace}
   </defs>
-  <rect x="${boxX}" y="${boxY}" width="${boxW}" height="${boxH}" fill="#ffffff"/>
-  <rect x="${boxX + 6}" y="${boxY + 6}" width="${boxW - 12}" height="${boxH - 12}" fill="#000000"/>
-  <polygon points="${tipX},${cy} ${baseX},${cy - half} ${baseX},${cy + half}" fill="#ffffff"/>
-  <polygon points="${innerTipX},${cy} ${baseX + 2},${cy - innerHalf} ${baseX + 2},${cy + innerHalf}" fill="#000000"/>
-  <rect x="${boxX + 12}" y="${boxY + 12}" width="${boxW - 24}" height="${boxH - 24}" fill="none" stroke="#ffffff" stroke-width="3"/>
-  <rect x="${boxX + 10}" y="${cy - innerHalf + 4}" width="8" height="${innerHalf * 2 - 8}" fill="#000000"/>
-  <polyline points="${baseX + 12},${cy - innerHalf + 2} ${innerTipX + 4},${cy} ${baseX + 12},${cy + innerHalf - 2}" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="miter"/>
+  <path d="${bubblePath(outer.x, outer.y, outer.w, outer.h, outer.tipX, outer.half)}" fill="#ffffff"/>
+  <path d="${bubblePath(fill.x, fill.y, fill.w, fill.h, fill.tipX, fill.half)}" fill="#000000"/>
+  <path d="${bubblePath(innerLine.x, innerLine.y, innerLine.w, innerLine.h, innerLine.tipX, innerLine.half)}" fill="#ffffff"/>
+  <path d="${bubblePath(innerFill.x, innerFill.y, innerFill.w, innerFill.h, innerFill.tipX, innerFill.half)}" fill="#000000"/>
   ${textNodes}
   <rect width="14" height="16" fill="#ffffff" x="${glyphs[0].x + charW}" y="${glyphs[0].y - 16}">
     <animate attributeName="x" values="${cursorX.join(";")}" keyTimes="${cursorTimes.join(";")}" calcMode="discrete" dur="${total.toFixed(3)}s" repeatCount="indefinite"/>

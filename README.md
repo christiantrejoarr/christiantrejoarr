@@ -67,3 +67,43 @@
 <img src="./assets/doom-play.svg" width="800" alt="Freedoom HUD with GitHub contributions as ammo"/>
 
 </div>
+
+<div align="center">
+
+<p>
+  <a href="https://github.com/christiantrejoarr" target="_blank" rel="noopener noreferrer">
+    <img src="https://komarev.com/ghpvc/?username=christiantrejoarr&label=PROFILE%20VIEWS&color=2f81f7&style=flat" alt="Profile views"/>
+  </a>
+  <a href="https://github.com/christiantrejoarr?tab=followers" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/github/followers/christiantrejoarr?label=FOLLOWERS&logo=github&style=flat&color=2f81f7" alt="GitHub followers"/>
+  </a>
+</p>
+
+</div>
+
+<p align="left">
+  <img src="./assets/stats-title.svg" alt="GITHUB ENGINEERING STATS"/>
+</p>
+
+<div align="center">
+
+<a href="https://github.com/christiantrejoarr?tab=overview" target="_blank" rel="noopener noreferrer">
+  <img src="https://streak-stats.demolab.com/?user=christiantrejoarr&theme=github-dark&hide_border=false&background=161B22&border=8B949E&stroke=8B949E&ring=39D0D8&fire=39D0D8&currStreakNum=FFFFFF&sideNums=FFFFFF&currStreakLabel=39D0D8&sideLabels=C9D1D9&dates=8B949E" alt="GitHub streak stats"/>
+</a>
+<a href="https://github.com/christiantrejoarr?tab=repositories" target="_blank" rel="noopener noreferrer">
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=christiantrejoarr&layout=compact&card_width=420&theme=dark&hide_border=false&border_color=8B949E&title_color=FFFFFF&text_color=C9D1D9&bg_color=161B22&custom_title=Technology%20Footprint" alt="Technology Footprint"/>
+</a>
+
+</div>
+
+<p align="left">
+  <img src="./assets/analytics-title.svg" alt="CONTRIBUTION ANALYTICS"/>
+</p>
+
+<div align="center">
+
+<a href="https://github.com/christiantrejoarr?tab=overview" target="_blank" rel="noopener noreferrer">
+  <img src="https://activity-graph.vercel.app/graph?username=christiantrejoarr&bg_color=161b22&color=c9d1d9&line=39d0d8&point=ffffff&area=true&hide_border=false&custom_title=Contribution%20Graph" alt="Contribution analytics graph" width="800"/>
+</a>
+
+</div>
