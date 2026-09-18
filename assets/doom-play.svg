@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430" role="img" aria-label="DOOM playing on this profile">
+  <defs>
+    <linearGradient id="ceil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b1d14"/>
+      <stop offset="100%" stop-color="#4a3120"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a3a22"/>
+      <stop offset="100%" stop-color="#24160e"/>
+    </linearGradient>
+    <clipPath id="view">
+      <rect x="0" y="0" width="800" height="332"/>
+    </clipPath>
+  </defs>
+
+  <rect width="800" height="430" fill="#000"/>
+
+  <g clip-path="url(#view)">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 8 2; 0 0; -8 2; 0 0" dur="1.15s" repeatCount="indefinite"/>
+      <polygon points="0,0 800,0 560,168 240,168" fill="url(#ceil)"/>
+      <polygon points="0,332 800,332 560,168 240,168" fill="url(#floor)"/>
+      <polygon points="0,0 240,168 240,168 0,332" fill="#6b3e24"/>
+      <polygon points="800,0 560,168 560,168 800,332" fill="#5a331d"/>
+      <rect x="240" y="118" width="320" height="92" fill="#3a2416"/>
+      <rect x="348" y="138" width="104" height="72" fill="#1a100a"/>
+      <rect x="360" y="150" width="80" height="48" fill="#7a1f12"/>
+      <rect x="236" y="0" width="8" height="332" fill="#2a1810"/>
+      <rect x="556" y="0" width="8" height="332" fill="#2a1810"/>
+
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="400 210; 400 214; 392 208; 408 212; 400 210" dur="0.9s" repeatCount="indefinite"/>
+        <ellipse cx="0" cy="18" rx="42" ry="16" fill="#2a160e" opacity="0.55"/>
+        <ellipse cx="0" cy="-8" rx="28" ry="34" fill="#8a3b1c"/>
+        <ellipse cx="-18" cy="-28" rx="10" ry="14" fill="#6d2c14"/>
+        <ellipse cx="18" cy="-28" rx="10" ry="14" fill="#6d2c14"/>
+        <circle cx="-10" cy="-10" r="5" fill="#ffff66"/>
+        <circle cx="10" cy="-10" r="5" fill="#ffff66"/>
+        <circle cx="-10" cy="-10" r="2" fill="#111"/>
+        <circle cx="10" cy="-10" r="2" fill="#111"/>
+        <path d="M-10 6 Q0 16 10 6" stroke="#2a1008" stroke-width="3" fill="none"/>
+      </g>
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;0;1;0;0;1;0;0" keyTimes="0;0.42;0.46;0.52;0.7;0.74;0.8;1" dur="2.4s" repeatCount="indefinite"/>
+      <rect x="0" y="0" width="800" height="332" fill="#ffcc66" opacity="0.28"/>
+    </g>
+  </g>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 6 8; 0 0; -6 8; 0 0" dur="0.55s" repeatCount="indefinite"/>
+    <path d="M268 332 L318 250 L482 250 L532 332 Z" fill="#4d4d4d"/>
+    <rect x="352" y="238" width="96" height="28" fill="#2f2f2f"/>
+    <rect x="372" y="214" width="56" height="28" fill="#1c1c1c"/>
+    <rect x="390" y="196" width="20" height="22" fill="#111"/>
+    <rect x="394" y="188" width="12" height="10" fill="#6a6a6a"/>
+  </g>
+
+  <rect x="0" y="332" width="800" height="98" fill="#4a3728"/>
+  <rect x="0" y="332" width="800" height="4" fill="#2a1e16"/>
+  <rect x="8" y="342" width="118" height="78" fill="#2b1d14"/>
+  <text x="67" y="368" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#bb2020">AMMO</text>
+  <text x="67" y="404" text-anchor="middle" font-family="Consolas, monospace" font-size="28" font-weight="700" fill="#ffff33">42</text>
+  <rect x="134" y="342" width="130" height="78" fill="#2b1d14"/>
+  <text x="199" y="368" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#bb2020">HEALTH</text>
+  <text x="199" y="404" text-anchor="middle" font-family="Consolas, monospace" font-size="28" font-weight="700" fill="#ffff33">87%</text>
+  <rect x="272" y="342" width="86" height="78" fill="#2b1d14"/>
+  <text x="315" y="368" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#bb2020">ARMS</text>
+  <text x="315" y="400" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#ffff33">2 3 4</text>
+  <rect x="366" y="342" width="78" height="78" fill="#1a120c"/>
+  <circle cx="405" cy="381" r="24" fill="#d8a070"/>
+  <circle cx="397" cy="376" r="3" fill="#111"/>
+  <circle cx="413" cy="376" r="3" fill="#111"/>
+  <path d="M396 390 Q405 396 414 390" stroke="#7a4030" stroke-width="2" fill="none"/>
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; -2 0; 0 0; 2 0; 0 0" dur="1.6s" repeatCount="indefinite"/>
+    <circle cx="405" cy="381" r="24" fill="none"/>
+  </g>
+  <rect x="452" y="342" width="130" height="78" fill="#2b1d14"/>
+  <text x="517" y="368" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#bb2020">ARMOR</text>
+  <text x="517" y="404" text-anchor="middle" font-family="Consolas, monospace" font-size="28" font-weight="700" fill="#ffff33">54%</text>
+  <rect x="590" y="342" width="202" height="78" fill="#2b1d14"/>
+  <text x="691" y="368" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#bb2020">E1M1 HANGAR</text>
+  <text x="691" y="400" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#ffff33">NOW PLAYING</text>
+</svg>
