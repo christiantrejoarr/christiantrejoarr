@@ -1,17 +1,10 @@
 <div align="center">
 
+<img src="./assets/intro-bubble.svg" width="920" alt="Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code."/>
 
-## About me
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=F7B801&center=true&vCenter=true&width=700&lines=Quisiera+lokiar+como+ustedes;pero+yo+ya+abuse+suficiente+de+la+bida+recia" alt="Quisiera lokiar como ustedes pero yo ya abuse suficiente de la bida recia"/>
 
-# Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code.
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=F7B801&center=true&vCenter=true&width=700&lines=Quisiera+lokiar+como+ustedes;pero+yo+ya+abuse+suficiente+de+la+bida+recia" alt="About me"/>
-
-> 
-
----
-
-## How to reach me
+<p><strong>How to reach me</strong></p>
 
 <p>
   <a href="https://www.linkedin.com/in/christian-trejo-arroyo/" target="_blank" rel="noopener noreferrer">
@@ -20,10 +13,7 @@
   <br/>LinkedIn
 </p>
 
----
-
-
-## Languages & Frameworks I code in
+<p><strong>Languages & Frameworks I code in</strong></p>
 
 <table>
   <tr>
@@ -168,12 +158,10 @@
   </tr>
 </table>
 
----
-
-My contributions
+<p><strong>My contributions</strong></p>
 
 <img src="./assets/doom-play.svg" width="800" alt="Freedoom HUD with GitHub contributions as ammo"/>
 
-<p><sub>Sprites de <a href="https://freedoom.github.io/">Freedoom</a>. El AMMO son mis contribuciones de GitHub.</sub></p>
+
 
 </div>
