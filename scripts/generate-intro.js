@@ -16,19 +16,34 @@ const fontFace = font
   </style>`
   : "";
 
-const title = "FRONTEND DEVELOPER ANGULAR / REACT";
-const titleSize = 16;
-const titleX = 4;
-const titleY = 26;
-const titleW = title.length * 16 + 40;
-const titleSvg = `<?xml version="1.0" encoding="UTF-8"?>
+function escapeXml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function renderHeading(title) {
+  const titleSize = 16;
+  const titleX = 4;
+  const titleY = 26;
+  const titleW = title.length * 16 + 40;
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${titleW}" height="36" viewBox="0 0 ${titleW} 36">
   <defs>
     ${fontFace}
   </defs>
-  <text x="${titleX}" y="${titleY}" font-family="Press Start 2P, Courier New, monospace" font-size="${titleSize}" fill="#ffffff">${title} <tspan fill="#ffffff">&#9608;<animate attributeName="opacity" values="1;0;1" dur="0.4s" repeatCount="indefinite"/></tspan></text>
+  <text x="${titleX}" y="${titleY}" font-family="Press Start 2P, Courier New, monospace" font-size="${titleSize}" fill="#ffffff">${escapeXml(title)} <tspan fill="#ffffff">&#9608;<animate attributeName="opacity" values="1;0;1" dur="0.4s" repeatCount="indefinite"/></tspan></text>
 </svg>
 `;
+}
+
+const headings = [
+  ["intro-title.svg", "FRONTEND DEVELOPER ANGULAR / REACT"],
+  ["contact-title.svg", "WAYS TO REACH ME"],
+  ["stack-title.svg", "LANGUAGES & FRAMEWORKS I CODE IN"],
+  ["contributions-title.svg", "MY CONTRIBUTIONS"],
+];
 
 const lines = [
   "* Fake profile!!! I'm actually",
@@ -123,6 +138,9 @@ const bubbleSvg = `<?xml version="1.0" encoding="UTF-8"?>
 `;
 
 const outDir = path.join(__dirname, "..", "assets");
-fs.writeFileSync(path.join(outDir, "intro-title.svg"), titleSvg);
+for (const [file, heading] of headings) {
+  fs.writeFileSync(path.join(outDir, file), renderHeading(heading));
+  console.log(`listo ${file}`);
+}
 fs.writeFileSync(path.join(outDir, "intro-bubble.svg"), bubbleSvg);
-console.log(`intro-title.svg e intro-bubble.svg listos (${total.toFixed(1)}s)`);
+console.log(`intro-bubble.svg listo (${total.toFixed(1)}s)`);

@@ -7,12 +7,21 @@
 <img src="./assets/intro-bubble.svg" width="920" alt="Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code."/>
 
 <p>
+  <img src="./assets/contact-title.svg" alt="WAYS TO REACH ME"/>
+</p>
+
+<p>
   <a href="https://www.linkedin.com/in/christian-trejo-arroyo/">
     <img src="./assets/stack/linkedin.svg" width="96" height="118" alt="LinkedIn"/>
   </a>
+  <a href="mailto:christiantrejoarroyo@gmail.com">
+    <img src="./assets/stack/gmail.svg" width="96" height="118" alt="Gmail"/>
+  </a>
 </p>
 
-<p><strong>Languages & Frameworks I code in</strong></p>
+<p>
+  <img src="./assets/stack-title.svg" alt="LANGUAGES & FRAMEWORKS I CODE IN"/>
+</p>
 
 <p>
   <a href="https://sass-lang.com/install/"><img src="./assets/stack/sass.svg" width="96" height="118" alt="Sass"/></a>
@@ -39,7 +48,9 @@
   <a href="https://wordpress.org/download/"><img src="./assets/stack/wordpress.svg" width="96" height="118" alt="WordPress"/></a>
 </p>
 
-<p><strong>My contributions</strong></p>
+<p>
+  <img src="./assets/contributions-title.svg" alt="MY CONTRIBUTIONS"/>
+</p>
 
 <img src="./assets/doom-play.svg" width="800" alt="Freedoom HUD with GitHub contributions as ammo"/>
 

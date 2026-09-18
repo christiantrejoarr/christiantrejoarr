@@ -11,6 +11,12 @@ const LOGOS = [
     src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg",
   },
   {
+    id: "gmail",
+    name: "Gmail",
+    href: "mailto:christiantrejoarroyo@gmail.com",
+    inlineSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#4285F4" d="M1.5 6.375v11.25c0 .828.672 1.5 1.5 1.5H6V10.5L1.5 7.125z"/><path fill="#34A853" d="M18 19.125h3c.828 0 1.5-.672 1.5-1.5V6.375L18 10.5z"/><path fill="#EA4335" d="M18 5.25v5.25L12 14.625 6 10.5V5.25L12 9.75z"/><path fill="#FBBC04" d="M22.5 6.375 18 10.5V5.25l2.4-1.8c.93-.698 2.1.052 2.1 1.125z"/><path fill="#C5221F" d="M1.5 6.375c0-1.073 1.17-1.823 2.1-1.125L6 5.25v5.25z"/></svg>`,
+  },
+  {
     id: "sass",
     name: "Sass",
     href: "https://sass-lang.com/install/",
@@ -179,13 +185,13 @@ function renderLogo({ id, name, href, dataUri, begin, dur }) {
     <g transform="translate(48 40)">
       <g>
         <animateTransform attributeName="transform" type="rotate"
-          values="0;0;-24;24;-20;18;-12;10;-4;0;0"
-          keyTimes="0;0.10;0.14;0.18;0.22;0.26;0.30;0.34;0.38;0.42;1"
+          values="0;0;-36;36;-34;34;-30;30;-24;24;-16;12;-6;0;0"
+          keyTimes="0;0.10;0.107;0.114;0.121;0.128;0.135;0.142;0.149;0.156;0.163;0.170;0.177;0.185;1"
           ${t}/>
         <g>
           <animateTransform attributeName="transform" type="scale"
-            values="1 1;1 1;1.1 0.86;0.88 1.14;1.08 0.9;0.92 1.1;1.04 0.96;0.98 1.04;1 1;1 1;1 1"
-            keyTimes="0;0.10;0.14;0.18;0.22;0.26;0.30;0.34;0.38;0.42;1"
+            values="1 1;1 1;1.16 0.8;0.8 1.18;1.14 0.84;0.84 1.16;1.1 0.88;0.88 1.12;1.06 0.94;0.94 1.06;1.04 0.96;0.98 1.04;1 1;1 1;1 1"
+            keyTimes="0;0.10;0.107;0.114;0.121;0.128;0.135;0.142;0.149;0.156;0.163;0.170;0.177;0.185;1"
             ${t}/>
           <image href="${dataUri}" xlink:href="${dataUri}" x="-28" y="-28" width="56" height="56"/>
         </g>
@@ -198,25 +204,25 @@ function renderLogo({ id, name, href, dataUri, begin, dur }) {
       <g transform="translate(48 96)">
         <g opacity="0">
           <animate attributeName="opacity"
-            values="0;0;1;1;0;0"
-            keyTimes="0;0.40;0.44;0.82;0.90;1"
+            values="0;0;1;1;1;1;1;1;0;0"
+            keyTimes="0;0.185;0.190;0.230;0.255;0.315;0.78;0.84;0.90;1"
             ${t}/>
           <g>
             <animateTransform attributeName="transform" type="translate"
-              values="0 -40;0 -40;0 10;0 -7;0 4;0 0;0 0;0 16"
-              keyTimes="0;0.40;0.50;0.56;0.62;0.68;0.82;1"
+              values="0 -42;0 -42;0 0;0 -22;0 0;0 -9;0 2;0 0;0 0;0 16"
+              keyTimes="0;0.185;0.228;0.252;0.272;0.288;0.300;0.314;0.78;1"
               calcMode="spline"
-              keySplines="0 0 1 1;0.15 0.85 0.35 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0 0 1 1;0.4 0 1 1"
+              keySplines="0 0 1 1;0.75 0 0.95 0.25;0.05 0.85 0.15 1;0.6 0 1 0.4;0.1 0.8 0.2 1;0.55 0 1 0.4;0.2 0.7 0.3 1;0 0 1 1;0.4 0 1 1"
               ${t}/>
             <g>
               <animateTransform attributeName="transform" type="rotate"
-                values="0;0;-16;12;-6;0;0;0"
-                keyTimes="0;0.40;0.47;0.54;0.60;0.68;0.82;1"
+                values="0;0;-8;4;0;-2;0;0;0;0"
+                keyTimes="0;0.185;0.228;0.252;0.272;0.288;0.300;0.314;0.78;1"
                 ${t}/>
               <g>
                 <animateTransform attributeName="transform" type="scale"
-                  values="1 1;0.78 1.35;1.38 0.52;0.9 1.18;1.06 0.94;1 1;1 1;1 1"
-                  keyTimes="0;0.40;0.50;0.56;0.62;0.68;0.82;1"
+                  values="1 1;1 1;1.55 0.32;0.78 1.28;1.18 0.78;0.92 1.1;1.04 0.94;1 1;1 1;1 1"
+                  keyTimes="0;0.185;0.228;0.252;0.272;0.288;0.300;0.314;0.78;1"
                   ${t}/>
                 <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="0" y="0" text-anchor="middle">${name}</text>
               </g>
@@ -231,6 +237,9 @@ function renderLogo({ id, name, href, dataUri, begin, dur }) {
 }
 
 async function dataUriFor(logo) {
+  if (logo.inlineSvg) {
+    return `data:image/svg+xml;base64,${Buffer.from(logo.inlineSvg).toString("base64")}`;
+  }
   const cached = existingDataUri(logo.id);
   if (cached) return cached;
   const response = await fetch(logo.src, {
