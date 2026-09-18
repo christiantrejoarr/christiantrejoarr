@@ -170,43 +170,58 @@ function existingDataUri(id) {
 }
 
 function renderLogo({ id, name, href, dataUri, begin, dur }) {
+  const t = `dur="${dur}s" begin="${begin}s" repeatCount="indefinite"`;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="118" viewBox="0 0 96 118" role="img" aria-label="${name}">
   <title>${name}</title>
   <a href="${href}" target="_blank" rel="noopener noreferrer">
     <rect width="96" height="118" fill="transparent"/>
-    <g>
-      <animateTransform attributeName="transform" type="translate"
-        values="0 0;0 0;0 10;0 58;0 118;0 118;0 -64;0 0;0 0"
-        keyTimes="0;0.14;0.18;0.28;0.36;0.40;0.41;0.48;1"
-        dur="${dur}s" begin="${begin}s" repeatCount="indefinite"
-        calcMode="spline"
-        keySplines="0 0 1 1;0.42 0 0.9 0.3;0.2 0.8 0.4 1;0.4 0 1 1;0 0 1 1;0 0 1 1;0.2 0.8 0.2 1;0 0 1 1"/>
-      <g transform="translate(48 40)">
+    <g transform="translate(48 40)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate"
+          values="0;0;-24;24;-20;18;-12;10;-4;0;0"
+          keyTimes="0;0.10;0.14;0.18;0.22;0.26;0.30;0.34;0.38;0.42;1"
+          ${t}/>
         <g>
-          <animateTransform attributeName="transform" type="rotate"
-            values="0;0;-18;16;-10;8;0;0;0"
-            keyTimes="0;0.14;0.18;0.22;0.26;0.32;0.38;0.48;1"
-            dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+          <animateTransform attributeName="transform" type="scale"
+            values="1 1;1 1;1.1 0.86;0.88 1.14;1.08 0.9;0.92 1.1;1.04 0.96;0.98 1.04;1 1;1 1;1 1"
+            keyTimes="0;0.10;0.14;0.18;0.22;0.26;0.30;0.34;0.38;0.42;1"
+            ${t}/>
           <image href="${dataUri}" xlink:href="${dataUri}" x="-28" y="-28" width="56" height="56"/>
         </g>
       </g>
     </g>
     <clipPath id="drop-${id}">
-      <rect x="0" y="68" width="96" height="50"/>
+      <rect x="0" y="70" width="96" height="48"/>
     </clipPath>
     <g clip-path="url(#drop-${id})">
-      <g opacity="0">
-        <animate attributeName="opacity"
-          values="0;0;1;1;0;0"
-          keyTimes="0;0.10;0.16;0.58;0.66;1"
-          dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
-        <g>
-          <animateTransform attributeName="transform" type="translate"
-            values="0 -28;0 -28;0 0;0 0;0 22;0 22"
-            keyTimes="0;0.10;0.18;0.58;0.66;1"
-            dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
-          <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="48" y="96" text-anchor="middle">${name}</text>
+      <g transform="translate(48 96)">
+        <g opacity="0">
+          <animate attributeName="opacity"
+            values="0;0;1;1;0;0"
+            keyTimes="0;0.40;0.44;0.82;0.90;1"
+            ${t}/>
+          <g>
+            <animateTransform attributeName="transform" type="translate"
+              values="0 -40;0 -40;0 10;0 -7;0 4;0 0;0 0;0 16"
+              keyTimes="0;0.40;0.50;0.56;0.62;0.68;0.82;1"
+              calcMode="spline"
+              keySplines="0 0 1 1;0.15 0.85 0.35 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0 0 1 1;0.4 0 1 1"
+              ${t}/>
+            <g>
+              <animateTransform attributeName="transform" type="rotate"
+                values="0;0;-16;12;-6;0;0;0"
+                keyTimes="0;0.40;0.47;0.54;0.60;0.68;0.82;1"
+                ${t}/>
+              <g>
+                <animateTransform attributeName="transform" type="scale"
+                  values="1 1;0.78 1.35;1.38 0.52;0.9 1.18;1.06 0.94;1 1;1 1;1 1"
+                  keyTimes="0;0.40;0.50;0.56;0.62;0.68;0.82;1"
+                  ${t}/>
+                <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="0" y="0" text-anchor="middle">${name}</text>
+              </g>
+            </g>
+          </g>
         </g>
       </g>
     </g>

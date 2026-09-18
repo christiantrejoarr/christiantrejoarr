@@ -3,38 +3,52 @@
   <title>JavaScript</title>
   <a href="https://developer.mozilla.org/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
     <rect width="96" height="118" fill="transparent"/>
-    <g>
-      <animateTransform attributeName="transform" type="translate"
-        values="0 0;0 0;0 10;0 58;0 118;0 118;0 -64;0 0;0 0"
-        keyTimes="0;0.14;0.18;0.28;0.36;0.40;0.41;0.48;1"
-        dur="8s" begin="4.65s" repeatCount="indefinite"
-        calcMode="spline"
-        keySplines="0 0 1 1;0.42 0 0.9 0.3;0.2 0.8 0.4 1;0.4 0 1 1;0 0 1 1;0 0 1 1;0.2 0.8 0.2 1;0 0 1 1"/>
-      <g transform="translate(48 40)">
+    <g transform="translate(48 40)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate"
+          values="0;0;-24;24;-20;18;-12;10;-4;0;0"
+          keyTimes="0;0.10;0.14;0.18;0.22;0.26;0.30;0.34;0.38;0.42;1"
+          dur="8s" begin="4.65s" repeatCount="indefinite"/>
         <g>
-          <animateTransform attributeName="transform" type="rotate"
-            values="0;0;-18;16;-10;8;0;0;0"
-            keyTimes="0;0.14;0.18;0.22;0.26;0.32;0.38;0.48;1"
+          <animateTransform attributeName="transform" type="scale"
+            values="1 1;1 1;1.1 0.86;0.88 1.14;1.08 0.9;0.92 1.1;1.04 0.96;0.98 1.04;1 1;1 1;1 1"
+            keyTimes="0;0.10;0.14;0.18;0.22;0.26;0.30;0.34;0.38;0.42;1"
             dur="8s" begin="4.65s" repeatCount="indefinite"/>
           <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjRjBEQjRGIiBkPSJNMS40MDggMS40MDhoMTI1LjE4NHYxMjUuMTg1SDEuNDA4eiIvPjxwYXRoIGZpbGw9IiMzMjMzMzAiIGQ9Ik0xMTYuMzQ3IDk2LjczNmMtLjkxNy01LjcxMS00LjY0MS0xMC41MDgtMTUuNjcyLTE0Ljk4MS0zLjgzMi0xLjc2MS04LjEwNC0zLjAyMi05LjM3Ny01LjkyNi0uNDUyLTEuNjktLjUxMi0yLjY0Mi0uMjI2LTMuNjY1LjgyMS0zLjMyIDQuNzg0LTQuMzU1IDcuOTI1LTMuNDAzIDIuMDIzLjY3OCAzLjkzOCAyLjIzNyA1LjA5MyA0LjcyNCA1LjQwMi0zLjQ5OCA1LjM5MS0zLjQ3NSA5LjE2My01Ljg3OS0xLjM4MS0yLjE0MS0yLjExOC0zLjEyOS0zLjAyMi00LjA0NS0zLjI0OS0zLjYyOS03LjY3Ni01LjQ5OC0xNC43NTYtNS4zNTVsLTMuNjg4LjQ3N2MtMy41MzQuODkzLTYuOTAyIDIuNzQ4LTguODc3IDUuMjM1LTUuOTI2IDYuNzI0LTQuMjM2IDE4LjQ5MiAyLjk3NSAyMy4zMzUgNy4xMDQgNS4zMzIgMTcuNTQgNi41NDUgMTguODczIDExLjUzMSAxLjI5NyA2LjEwNC00LjQ4NiA4LjA4LTEwLjIzNCA3LjM3OC00LjIzNi0uODgxLTYuNTkyLTMuMDM0LTkuMTM5LTYuOTQ5LTQuNjg4IDIuNzEzLTQuNjg4IDIuNzEzLTkuNTA4IDUuNDg1IDEuMTQzIDIuNDk5IDIuMzQ0IDMuNjMgNC4yNiA1Ljc5NSA5LjA2OCA5LjE5OCAzMS43NiA4Ljc0NiAzNS44My01LjE3Ni4xNjUtLjQ3OCAxLjI2MS0zLjY2Ni4zOC04LjU4MXpNNjkuNDYyIDU4Ljk0M0g1Ny43NTNsLS4wNDggMzAuMjcyYzAgNi40MzguMzMzIDEyLjM0LS43MTQgMTQuMTQ5LTEuNzEzIDMuNTU4LTYuMTUyIDMuMTE3LTguMTc1IDIuNDI3LTIuMDU5LTEuMDEyLTMuMTA2LTIuNDUxLTQuMzE5LTQuNDg1LS4zMzMtLjU4NC0uNTgzLTEuMDM2LS42NjctMS4wNzFsLTkuNTIgNS44M2MxLjU4MyAzLjI0OSAzLjkxNSA2LjA2OSA2LjkwMiA3LjkwMSA0LjQ2MiAyLjY3OCAxMC40NTkgMy40OTkgMTYuNzMxIDIuMDU5IDQuMDgyLTEuMTg5IDcuNjA0LTMuNjUyIDkuNDQ4LTcuNDAxIDIuNjY2LTQuOTE1IDIuMDk0LTEwLjg2NCAyLjA3LTE3LjQ0NC4wNi0xMC43MzUuMDAxLTIxLjQ2OC4wMDEtMzIuMjM3eiIvPjwvc3ZnPg==" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjRjBEQjRGIiBkPSJNMS40MDggMS40MDhoMTI1LjE4NHYxMjUuMTg1SDEuNDA4eiIvPjxwYXRoIGZpbGw9IiMzMjMzMzAiIGQ9Ik0xMTYuMzQ3IDk2LjczNmMtLjkxNy01LjcxMS00LjY0MS0xMC41MDgtMTUuNjcyLTE0Ljk4MS0zLjgzMi0xLjc2MS04LjEwNC0zLjAyMi05LjM3Ny01LjkyNi0uNDUyLTEuNjktLjUxMi0yLjY0Mi0uMjI2LTMuNjY1LjgyMS0zLjMyIDQuNzg0LTQuMzU1IDcuOTI1LTMuNDAzIDIuMDIzLjY3OCAzLjkzOCAyLjIzNyA1LjA5MyA0LjcyNCA1LjQwMi0zLjQ5OCA1LjM5MS0zLjQ3NSA5LjE2My01Ljg3OS0xLjM4MS0yLjE0MS0yLjExOC0zLjEyOS0zLjAyMi00LjA0NS0zLjI0OS0zLjYyOS03LjY3Ni01LjQ5OC0xNC43NTYtNS4zNTVsLTMuNjg4LjQ3N2MtMy41MzQuODkzLTYuOTAyIDIuNzQ4LTguODc3IDUuMjM1LTUuOTI2IDYuNzI0LTQuMjM2IDE4LjQ5MiAyLjk3NSAyMy4zMzUgNy4xMDQgNS4zMzIgMTcuNTQgNi41NDUgMTguODczIDExLjUzMSAxLjI5NyA2LjEwNC00LjQ4NiA4LjA4LTEwLjIzNCA3LjM3OC00LjIzNi0uODgxLTYuNTkyLTMuMDM0LTkuMTM5LTYuOTQ5LTQuNjg4IDIuNzEzLTQuNjg4IDIuNzEzLTkuNTA4IDUuNDg1IDEuMTQzIDIuNDk5IDIuMzQ0IDMuNjMgNC4yNiA1Ljc5NSA5LjA2OCA5LjE5OCAzMS43NiA4Ljc0NiAzNS44My01LjE3Ni4xNjUtLjQ3OCAxLjI2MS0zLjY2Ni4zOC04LjU4MXpNNjkuNDYyIDU4Ljk0M0g1Ny43NTNsLS4wNDggMzAuMjcyYzAgNi40MzguMzMzIDEyLjM0LS43MTQgMTQuMTQ5LTEuNzEzIDMuNTU4LTYuMTUyIDMuMTE3LTguMTc1IDIuNDI3LTIuMDU5LTEuMDEyLTMuMTA2LTIuNDUxLTQuMzE5LTQuNDg1LS4zMzMtLjU4NC0uNTgzLTEuMDM2LS42NjctMS4wNzFsLTkuNTIgNS44M2MxLjU4MyAzLjI0OSAzLjkxNSA2LjA2OSA2LjkwMiA3LjkwMSA0LjQ2MiAyLjY3OCAxMC40NTkgMy40OTkgMTYuNzMxIDIuMDU5IDQuMDgyLTEuMTg5IDcuNjA0LTMuNjUyIDkuNDQ4LTcuNDAxIDIuNjY2LTQuOTE1IDIuMDk0LTEwLjg2NCAyLjA3LTE3LjQ0NC4wNi0xMC43MzUuMDAxLTIxLjQ2OC4wMDEtMzIuMjM3eiIvPjwvc3ZnPg==" x="-28" y="-28" width="56" height="56"/>
         </g>
       </g>
     </g>
     <clipPath id="drop-javascript">
-      <rect x="0" y="68" width="96" height="50"/>
+      <rect x="0" y="70" width="96" height="48"/>
     </clipPath>
     <g clip-path="url(#drop-javascript)">
-      <g opacity="0">
-        <animate attributeName="opacity"
-          values="0;0;1;1;0;0"
-          keyTimes="0;0.10;0.16;0.58;0.66;1"
-          dur="8s" begin="4.65s" repeatCount="indefinite"/>
-        <g>
-          <animateTransform attributeName="transform" type="translate"
-            values="0 -28;0 -28;0 0;0 0;0 22;0 22"
-            keyTimes="0;0.10;0.18;0.58;0.66;1"
+      <g transform="translate(48 96)">
+        <g opacity="0">
+          <animate attributeName="opacity"
+            values="0;0;1;1;0;0"
+            keyTimes="0;0.40;0.44;0.82;0.90;1"
             dur="8s" begin="4.65s" repeatCount="indefinite"/>
-          <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="48" y="96" text-anchor="middle">JavaScript</text>
+          <g>
+            <animateTransform attributeName="transform" type="translate"
+              values="0 -40;0 -40;0 10;0 -7;0 4;0 0;0 0;0 16"
+              keyTimes="0;0.40;0.50;0.56;0.62;0.68;0.82;1"
+              calcMode="spline"
+              keySplines="0 0 1 1;0.15 0.85 0.35 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0 0 1 1;0.4 0 1 1"
+              dur="8s" begin="4.65s" repeatCount="indefinite"/>
+            <g>
+              <animateTransform attributeName="transform" type="rotate"
+                values="0;0;-16;12;-6;0;0;0"
+                keyTimes="0;0.40;0.47;0.54;0.60;0.68;0.82;1"
+                dur="8s" begin="4.65s" repeatCount="indefinite"/>
+              <g>
+                <animateTransform attributeName="transform" type="scale"
+                  values="1 1;0.78 1.35;1.38 0.52;0.9 1.18;1.06 0.94;1 1;1 1;1 1"
+                  keyTimes="0;0.40;0.50;0.56;0.62;0.68;0.82;1"
+                  dur="8s" begin="4.65s" repeatCount="indefinite"/>
+                <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="0" y="0" text-anchor="middle">JavaScript</text>
+              </g>
+            </g>
+          </g>
         </g>
       </g>
     </g>
