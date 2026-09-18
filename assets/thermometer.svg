@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="460" viewBox="0 0 280 460" role="img" aria-label="Termometro de visitas reales: 0">
+  <!-- visits: 0 -->
+  <defs>
+    <linearGradient id="mercury" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#1c3d5a"/>
+      <stop offset="55%" stop-color="#4c6ef5"/>
+      <stop offset="100%" stop-color="#d0ebff"/>
+    </linearGradient>
+    <linearGradient id="bulb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d0ebff"/>
+      <stop offset="100%" stop-color="#1c3d5a"/>
+    </linearGradient>
+    <clipPath id="tubeClip">
+      <rect x="128" y="72" width="24" height="240" rx="12"/>
+    </clipPath>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="8" y="8" width="264" height="444" rx="24" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <text x="140" y="36" text-anchor="middle" font-family="Segoe UI, Ubuntu, sans-serif" font-size="15" font-weight="700" fill="#f0f6fc">Termometro de visitas</text>
+  <text x="140" y="54" text-anchor="middle" font-family="Segoe UI, Ubuntu, sans-serif" font-size="10" fill="#8b949e">lecturas reales del perfil</text>
+
+  <rect x="126" y="68" width="28" height="248" rx="14" fill="#161b22" stroke="#8b949e" stroke-width="2"/>
+  <g clip-path="url(#tubeClip)">
+    <rect x="128" y="302.0" width="24" height="10.0" fill="url(#mercury)" filter="url(#glow)"/>
+  </g>
+  <rect x="134" y="80" width="5" height="188" rx="2.5" fill="#ffffff" opacity="0.22"/>
+
+  <circle cx="140" cy="348" r="38" fill="url(#bulb)" filter="url(#glow)"/>
+  <circle cx="140" cy="348" r="26" fill="#4c6ef5"/>
+  <circle cx="128" cy="336" r="8" fill="#ffffff" opacity="0.28"/>
+
+  
+      <line x1="158" y1="72.0" x2="176" y2="72.0" stroke="#8b949e" stroke-width="2"/>
+      <text x="182" y="76.0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#8b949e">100K</text>
+      <line x1="158" y1="120.0" x2="170" y2="120.0" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="182" y="124.0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#8b949e">10K</text>
+      <line x1="158" y1="168.0" x2="170" y2="168.0" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="182" y="172.0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#8b949e">1K</text>
+      <line x1="158" y1="216.0" x2="170" y2="216.0" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="182" y="220.0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#8b949e">100</text>
+      <line x1="158" y1="264.0" x2="170" y2="264.0" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="182" y="268.0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#8b949e">10</text>
+      <line x1="158" y1="312.0" x2="176" y2="312.0" stroke="#8b949e" stroke-width="2"/>
+      <text x="182" y="316.0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#8b949e">0</text>
+
+  <text x="140" y="408" text-anchor="middle" font-family="Segoe UI, Ubuntu, sans-serif" font-size="22" font-weight="700" fill="#f0f6fc">0</text>
+  <text x="140" y="426" text-anchor="middle" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" fill="#91a7ff">FRIO · visitas reales</text>
+</svg>

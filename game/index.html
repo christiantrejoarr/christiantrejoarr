@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skate Stack</title>
+  <style>
+    :root {
+      --bg: #07090d;
+      --panel: #0d1117;
+      --line: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --gold: #f7b801;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top, #151b24 0%, var(--bg) 48%);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
+
+    .wrap {
+      width: min(920px, 100%);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .stage {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .hint {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Skate Stack</h1>
+    <p>Click en la pista para que el skater brinque los logos del tech stack.</p>
+    <div class="stage" id="stage">
+      <canvas id="game" width="900" height="320"></canvas>
+    </div>
+    <p class="hint">Click, tap, espacio o flecha arriba para ollie. Recarga o click tras un crash para volver a correr.</p>
+  </div>
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    const stage = document.getElementById("stage");
+
+    const GROUND_Y = 258;
+    const GRAVITY = 0.72;
+    const JUMP_VELOCITY = -13.4;
+    const LOGOS = [
+      ["Sass", "sass/sass-original.svg"],
+      ["SCSS", "sass/sass-original.svg"],
+      ["CSS3", "css3/css3-original.svg"],
+      ["HTML5", "html5/html5-original.svg"],
+      ["JavaScript", "javascript/javascript-original.svg"],
+      ["TypeScript", "typescript/typescript-original.svg"],
+      ["Ionic", "ionic/ionic-original.svg"],
+      ["Angular", "angular/angular-original.svg"],
+      ["Bootstrap", "bootstrap/bootstrap-original.svg"],
+      ["Materialize", "materializecss/materializecss-original.svg"],
+      ["npm", "npm/npm-original-wordmark.svg"],
+      ["React Router", "reactrouter/reactrouter-original.svg"],
+      ["React Native", "reactnative/reactnative-original.svg"],
+      ["React", "react/react-original.svg"],
+      ["Vue.js", "vuejs/vuejs-original.svg"],
+      ["Node.js", "nodejs/nodejs-original.svg"],
+      ["Yarn", "yarn/yarn-original.svg"],
+      ["MongoDB", "mongodb/mongodb-original.svg"],
+      ["Figma", "figma/figma-original.svg"],
+      ["Jira", "jira/jira-original.svg"],
+      ["Postman", "postman/postman-original.svg"],
+      ["WordPress", "wordpress/wordpress-original.svg"],
+    ];
+
+    const images = new Map();
+    let state = "ready";
+    let speed = 7.2;
+    let score = 0;
+    let best = Number(localStorage.getItem("skate-stack-best") || 0);
+    let spawnIn = 70;
+    let obstacles = [];
+    let groundOffset = 0;
+    let tick = 0;
+
+    const skater = {
+      x: 92,
+      y: GROUND_Y,
+      vy: 0,
+      width: 54,
+      height: 70,
+    };
+
+    function logoUrl(file) {
+      return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${file}`;
+    }
+
+    function loadLogos() {
+      return Promise.all(
+        LOGOS.map(([name, file]) => new Promise((resolve) => {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = () => {
+            images.set(name, img);
+            resolve();
+          };
+          img.onerror = () => resolve();
+          img.src = logoUrl(file);
+        }))
+      );
+    }
+
+    function reset() {
+      state = "ready";
+      speed = 7.2;
+      score = 0;
+      spawnIn = 70;
+      obstacles = [];
+      skater.y = GROUND_Y;
+      skater.vy = 0;
+    }
+
+    function jump() {
+      if (state === "dead") {
+        reset();
+        state = "playing";
+        return;
+      }
+      if (state === "ready") state = "playing";
+      if (skater.y >= GROUND_Y - 1) {
+        skater.vy = JUMP_VELOCITY;
+      }
+    }
+
+    function spawnObstacle() {
+      const [name] = LOGOS[Math.floor(Math.random() * LOGOS.length)];
+      const size = 38 + Math.floor(Math.random() * 22);
+      obstacles.push({
+        name,
+        x: canvas.width + 20,
+        size,
+        y: GROUND_Y - size,
+      });
+      spawnIn = 58 + Math.random() * 72;
+    }
+
+    function hitboxesOverlap(a, b) {
+      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+    }
+
+    function drawBackground() {
+      const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      sky.addColorStop(0, "#111822");
+      sky.addColorStop(1, "#0d1117");
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "rgba(247, 184, 1, 0.08)";
+      for (let i = 0; i < 18; i += 1) {
+        const x = (i * 73 + tick * 0.4) % canvas.width;
+        ctx.beginPath();
+        ctx.arc(x, 28 + (i % 5) * 18, 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.fillStyle = "#161b22";
+      ctx.fillRect(0, GROUND_Y + 8, canvas.width, canvas.height - GROUND_Y);
+      ctx.fillStyle = "#f7b801";
+      ctx.fillRect(0, GROUND_Y + 8, canvas.width, 3);
+
+      ctx.strokeStyle = "rgba(240, 246, 252, 0.18)";
+      ctx.setLineDash([18, 16]);
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-groundOffset, GROUND_Y + 28);
+      ctx.lineTo(canvas.width, GROUND_Y + 28);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    function drawSkater() {
+      const airborne = skater.y < GROUND_Y - 1;
+      const bob = airborne ? 0 : Math.sin(tick / 5) * 1.6;
+      const lean = airborne ? -0.18 : -0.08;
+      const x = skater.x;
+      const y = skater.y + bob;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(lean);
+
+      ctx.fillStyle = "#111";
+      ctx.fillRect(-24, -8, 48, 7);
+      ctx.fillStyle = "#f7b801";
+      ctx.fillRect(-22, -10, 44, 3);
+      ctx.fillStyle = "#d0d7de";
+      ctx.beginPath();
+      ctx.arc(-16, -1, 4.5, 0, Math.PI * 2);
+      ctx.arc(16, -1, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#f7b801";
+      ctx.beginPath();
+      ctx.ellipse(2, -48, 11, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1f6feb";
+      ctx.fillRect(-7, -40, 18, 22);
+      ctx.fillStyle = "#0d1117";
+      ctx.fillRect(-4, -18, 6, 14);
+      ctx.fillRect(6, -18, 6, 14);
+      ctx.strokeStyle = "#f0f6fc";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-8, -34);
+      ctx.lineTo(-20, -24);
+      ctx.moveTo(12, -34);
+      ctx.lineTo(22, -18);
+      ctx.stroke();
+      ctx.fillStyle = "#f0f6fc";
+      ctx.beginPath();
+      ctx.arc(3, -50, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawObstacle(item) {
+      const img = images.get(item.name);
+      ctx.fillStyle = "#21262d";
+      roundRect(item.x - 6, item.y - 6, item.size + 12, item.size + 12, 10);
+      ctx.fill();
+      if (img) {
+        ctx.drawImage(img, item.x, item.y, item.size, item.size);
+      } else {
+        ctx.fillStyle = "#f7b801";
+        ctx.font = "bold 11px Segoe UI";
+        ctx.textAlign = "center";
+        ctx.fillText(item.name, item.x + item.size / 2, item.y + item.size / 2 + 4);
+      }
+    }
+
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function drawHud() {
+      ctx.fillStyle = "#f0f6fc";
+      ctx.font = "bold 18px Segoe UI";
+      ctx.textAlign = "right";
+      ctx.fillText(String(Math.floor(score)).padStart(5, "0"), canvas.width - 24, 32);
+      ctx.fillStyle = "#8b949e";
+      ctx.font = "12px Segoe UI";
+      ctx.fillText(`HI ${String(Math.floor(best)).padStart(5, "0")}`, canvas.width - 24, 50);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#f7b801";
+      ctx.font = "bold 14px Segoe UI";
+      ctx.fillText("SKATE STACK", 20, 30);
+
+      if (state === "ready") {
+        banner("Click para ollie");
+      } else if (state === "dead") {
+        banner("Crash. Click para otra carrera");
+      }
+    }
+
+    function banner(text) {
+      ctx.fillStyle = "rgba(13, 17, 23, 0.72)";
+      ctx.fillRect(canvas.width / 2 - 190, 118, 380, 54);
+      ctx.strokeStyle = "#f7b801";
+      ctx.strokeRect(canvas.width / 2 - 190, 118, 380, 54);
+      ctx.fillStyle = "#f7b801";
+      ctx.font = "bold 20px Segoe UI";
+      ctx.textAlign = "center";
+      ctx.fillText(text, canvas.width / 2, 152);
+    }
+
+    function update() {
+      tick += 1;
+      if (state === "playing") {
+        speed += 0.0018;
+        score += 0.25;
+        groundOffset = (groundOffset + speed) % 34;
+        spawnIn -= 1;
+        if (spawnIn <= 0) spawnObstacle();
+
+        skater.vy += GRAVITY;
+        skater.y += skater.vy;
+        if (skater.y > GROUND_Y) {
+          skater.y = GROUND_Y;
+          skater.vy = 0;
+        }
+
+        obstacles.forEach((item) => {
+          item.x -= speed;
+        });
+        obstacles = obstacles.filter((item) => item.x + item.size > -40);
+
+        const skaterBox = {
+          x: skater.x - 18,
+          y: skater.y - 62,
+          w: 38,
+          h: 58,
+        };
+        const crashed = obstacles.some((item) => hitboxesOverlap(skaterBox, {
+          x: item.x + 6,
+          y: item.y + 6,
+          w: item.size - 12,
+          h: item.size - 8,
+        }));
+        if (crashed) {
+          state = "dead";
+          best = Math.max(best, Math.floor(score));
+          localStorage.setItem("skate-stack-best", String(best));
+        }
+      }
+
+      drawBackground();
+      obstacles.forEach(drawObstacle);
+      drawSkater();
+      drawHud();
+      requestAnimationFrame(update);
+    }
+
+    stage.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      jump();
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "Space" || event.code === "ArrowUp") {
+        event.preventDefault();
+        jump();
+      }
+    });
+
+    loadLogos().then(() => {
+      update();
+    });
+  </script>
+</body>
+</html>

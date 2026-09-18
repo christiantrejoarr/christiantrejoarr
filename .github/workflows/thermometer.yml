@@ -1,0 +1,36 @@
+name: Update visit thermometer
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate thermometer from real visits
+        run: node scripts/generate-thermometer.js
+
+      - name: Commit thermometer if visits changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/thermometer.svg
+          if git diff --cached --quiet; then
+            echo "El conteo de visitas no cambio"
+          else
+            git commit -m "chore: update visit thermometer"
+            git push
+          fi
