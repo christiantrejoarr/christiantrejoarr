@@ -45,14 +45,6 @@
 
 ## Tech stack:
 
-<p>
-  <a href="https://christiantrejoarr.github.io/christiantrejoarr/">
-    <img src="./assets/skate-preview.svg" width="900" alt="Skate Stack: click para que el skater brinque los logos"/>
-  </a>
-</p>
-
-<p><b><a href="https://christiantrejoarr.github.io/christiantrejoarr/">▶ Jugar Skate Stack</a></b> — click en la pista para ollie sobre los logos.</p>
-
 <table>
   <tr>
     <td align="center" width="96">
