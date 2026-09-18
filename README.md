@@ -2,159 +2,188 @@
 
 <img src="./assets/intro-bubble.svg" width="920" alt="Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code."/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=F7B801&center=true&vCenter=true&width=700&lines=Quisiera+lokiar+como+ustedes;pero+yo+ya+abuse+suficiente+de+la+bida+recia" alt="Quisiera lokiar como ustedes pero yo ya abuse suficiente de la bida recia"/>
-
-<p><strong>How to reach me</strong></p>
-
-<p>
-  <a href="https://www.linkedin.com/in/christian-trejo-arroyo/" target="_blank" rel="noopener noreferrer">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="56" height="56" alt="LinkedIn"/>
-  </a>
-  <br/>LinkedIn
-</p>
-
-<p><strong>Languages & Frameworks I code in</strong></p>
+<table>
+  <tr>
+    <td valign="middle" width="180">
+      <img src="./assets/me.png" width="150" alt="Christian Trejo"/>
+    </td>
+    <td valign="middle" align="center">
+      <p><strong>How to reach me</strong></p>
+      <p>
+        <object data="./assets/stack/linkedin.svg" type="image/svg+xml" width="96" height="118">
+          <a href="https://www.linkedin.com/in/christian-trejo-arroyo/" target="_blank" rel="noopener noreferrer">
+            <img src="./assets/stack/linkedin.svg" width="96" height="118" alt="LinkedIn"/>
+          </a>
+        </object>
+      </p>
+      <p><strong>Languages & Frameworks I code in</strong></p>
 
 <table>
   <tr>
     <td align="center" width="96">
-      <a href="https://sass-lang.com/install/" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" width="48" height="48" alt="Sass"/>
-      </a>
-      <br/>Sass
+      <object data="./assets/stack/sass.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://sass-lang.com/install/" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/sass.svg" width="96" height="118" alt="Sass"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://sass-lang.com/documentation/syntax/" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" width="48" height="48" alt="SCSS"/>
-      </a>
-      <br/>SCSS
+      <object data="./assets/stack/scss.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://sass-lang.com/documentation/syntax/" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/scss.svg" width="96" height="118" alt="SCSS"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://developer.mozilla.org/docs/Web/CSS" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="48" height="48" alt="CSS3"/>
-      </a>
-      <br/>CSS3
+      <object data="./assets/stack/css3.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://developer.mozilla.org/docs/Web/CSS" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/css3.svg" width="96" height="118" alt="CSS3"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://developer.mozilla.org/docs/Web/HTML" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="48" height="48" alt="HTML5"/>
-      </a>
-      <br/>HTML5
+      <object data="./assets/stack/html5.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://developer.mozilla.org/docs/Web/HTML" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/html5.svg" width="96" height="118" alt="HTML5"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="48" height="48" alt="JavaScript"/>
-      </a>
-      <br/>JavaScript
+      <object data="./assets/stack/javascript.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://developer.mozilla.org/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/javascript.svg" width="96" height="118" alt="JavaScript"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.typescriptlang.org/download" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="48" height="48" alt="TypeScript"/>
-      </a>
-      <br/>TypeScript
+      <object data="./assets/stack/typescript.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.typescriptlang.org/download" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/typescript.svg" width="96" height="118" alt="TypeScript"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://ionicframework.com/docs/intro/cli" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ionic/ionic-original.svg" width="48" height="48" alt="Ionic"/>
-      </a>
-      <br/>Ionic
+      <object data="./assets/stack/ionic.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://ionicframework.com/docs/intro/cli" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/ionic.svg" width="96" height="118" alt="Ionic"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://angular.dev/installation" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" width="48" height="48" alt="Angular"/>
-      </a>
-      <br/>Angular
+      <object data="./assets/stack/angular.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://angular.dev/installation" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/angular.svg" width="96" height="118" alt="Angular"/>
+        </a>
+      </object>
     </td>
   </tr>
   <tr>
     <td align="center" width="96">
-      <a href="https://getbootstrap.com/docs/5.3/getting-started/download/" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="48" height="48" alt="Bootstrap"/>
-      </a>
-      <br/>Bootstrap
+      <object data="./assets/stack/bootstrap.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://getbootstrap.com/docs/5.3/getting-started/download/" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/bootstrap.svg" width="96" height="118" alt="Bootstrap"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://materializecss.com/getting-started.html" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materializecss/materializecss-original.svg" width="48" height="48" alt="Materialize"/>
-      </a>
-      <br/>Materialize
+      <object data="./assets/stack/materialize.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://materializecss.com/getting-started.html" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/materialize.svg" width="96" height="118" alt="Materialize"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" width="48" height="48" alt="npm"/>
-      </a>
-      <br/>npm
+      <object data="./assets/stack/npm.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/npm.svg" width="96" height="118" alt="npm"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.npmjs.com/package/react-router" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/reactrouter/reactrouter-original.svg" width="48" height="48" alt="React Router"/>
-      </a>
-      <br/>React Router
+      <object data="./assets/stack/react-router.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.npmjs.com/package/react-router" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/react-router.svg" width="96" height="118" alt="React Router"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://reactnative.dev/docs/environment-setup" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/reactnative/reactnative-original.svg" width="48" height="48" alt="React Native"/>
-      </a>
-      <br/>React Native
+      <object data="./assets/stack/react-native.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://reactnative.dev/docs/environment-setup" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/react-native.svg" width="96" height="118" alt="React Native"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.npmjs.com/package/react" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="48" height="48" alt="React"/>
-      </a>
-      <br/>React
+      <object data="./assets/stack/react.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.npmjs.com/package/react" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/react.svg" width="96" height="118" alt="React"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.npmjs.com/package/vue" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" width="48" height="48" alt="Vue.js"/>
-      </a>
-      <br/>Vue.js
+      <object data="./assets/stack/vuejs.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.npmjs.com/package/vue" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/vuejs.svg" width="96" height="118" alt="Vue.js"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://nodejs.org/en/download" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="48" height="48" alt="Node.js"/>
-      </a>
-      <br/>Node.js
+      <object data="./assets/stack/nodejs.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://nodejs.org/en/download" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/nodejs.svg" width="96" height="118" alt="Node.js"/>
+        </a>
+      </object>
     </td>
   </tr>
   <tr>
     <td align="center" width="96">
-      <a href="https://yarnpkg.com/getting-started/install" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg" width="48" height="48" alt="Yarn"/>
-      </a>
-      <br/>Yarn
+      <object data="./assets/stack/yarn.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://yarnpkg.com/getting-started/install" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/yarn.svg" width="96" height="118" alt="Yarn"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.mongodb.com/try/download/community" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="48" height="48" alt="MongoDB"/>
-      </a>
-      <br/>MongoDB
+      <object data="./assets/stack/mongodb.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.mongodb.com/try/download/community" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/mongodb.svg" width="96" height="118" alt="MongoDB"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.figma.com/downloads/" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" width="48" height="48" alt="Figma"/>
-      </a>
-      <br/>Figma
+      <object data="./assets/stack/figma.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.figma.com/downloads/" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/figma.svg" width="96" height="118" alt="Figma"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" width="48" height="48" alt="Jira"/>
-      </a>
-      <br/>Jira
+      <object data="./assets/stack/jira.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/jira.svg" width="96" height="118" alt="Jira"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://www.postman.com/downloads/" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" width="48" height="48" alt="Postman"/>
-      </a>
-      <br/>Postman
+      <object data="./assets/stack/postman.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://www.postman.com/downloads/" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/postman.svg" width="96" height="118" alt="Postman"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96">
-      <a href="https://wordpress.org/download/" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg" width="48" height="48" alt="WordPress"/>
-      </a>
-      <br/>WordPress
+      <object data="./assets/stack/wordpress.svg" type="image/svg+xml" width="96" height="118">
+        <a href="https://wordpress.org/download/" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/stack/wordpress.svg" width="96" height="118" alt="WordPress"/>
+        </a>
+      </object>
     </td>
     <td align="center" width="96"></td>
     <td align="center" width="96"></td>
+  </tr>
+</table>
+
+    </td>
   </tr>
 </table>
 

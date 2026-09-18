@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="118" viewBox="0 0 96 118" role="img" aria-label="Node.js">
+  <title>Node.js</title>
+  <style>
+    .icon {
+      transform-origin: 48px 40px;
+      transform-box: fill-box;
+    }
+    .label {
+      fill: #c9d1d9;
+      font-family: Segoe UI, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-22px);
+      transition: opacity 0.12s linear, transform 0.35s cubic-bezier(0.18, 1.4, 0.32, 1);
+    }
+    svg:hover .icon,
+    a:hover .icon {
+      animation: dogshake 0.55s ease-in-out;
+    }
+    svg:hover .label,
+    a:hover .label {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.14s;
+    }
+    @keyframes dogshake {
+      0% { transform: rotate(0deg) scale(1, 1); }
+      12% { transform: rotate(-22deg) scale(1.08, 0.9); }
+      24% { transform: rotate(22deg) scale(0.92, 1.08); }
+      36% { transform: rotate(-18deg) scale(1.06, 0.92); }
+      48% { transform: rotate(18deg) scale(0.94, 1.06); }
+      60% { transform: rotate(-10deg) scale(1.03, 0.97); }
+      72% { transform: rotate(10deg) scale(0.97, 1.03); }
+      84% { transform: rotate(-4deg) scale(1.01, 0.99); }
+      100% { transform: rotate(0deg) scale(1, 1); }
+    }
+  </style>
+  <a href="https://nodejs.org/en/download" target="_blank" rel="noopener noreferrer">
+    <rect width="96" height="118" fill="transparent"/>
+    <g class="icon">
+      <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSJ1cmwoI2EpIiBkPSJNNjYuOTU4LjgyNWE2LjA3IDYuMDcgMCAwIDAtNi4wMzUgMEwxMS4xMDMgMjkuNzZjLTEuODk1IDEuMDcyLTIuOTYgMy4wOTUtMi45NiA1LjI0djU3Ljk4OGMwIDIuMTQzIDEuMTgzIDQuMTY3IDIuOTU4IDUuMjRsNDkuODIgMjguOTM0YTYuMDcgNi4wNyAwIDAgMCA2LjAzNiAwbDQ5LjgyLTI4LjkzNWMxLjg5NC0xLjA3MiAyLjk1OC0zLjA5NiAyLjk1OC01LjI0VjM1YzAtMi4xNDQtMS4xODMtNC4xNjctMi45NTgtNS4yNHoiLz48cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMTE2Ljg5NyAyOS43NiA2Ni44NDEuODI1QTguMTYxIDguMTYxIDAgMCAwIDY1LjMwMi4yM0w5LjIxIDk2Ljc5OGE2LjI1MSA2LjI1MSAwIDAgMCAxLjY1NyAxLjQzbDUwLjA1NyAyOC45MzRjMS40Mi44MzMgMy4wNzYgMS4wNzIgNC42MTUuNTk1bDUyLjY2LTk2LjkyNWEzLjcwMiAzLjcwMiAwIDAgMC0xLjMwMi0xLjA3MnoiLz48cGF0aCBmaWxsPSJ1cmwoI2MpIiBkPSJNMTE2Ljg5OCA5OC4yMjVjMS40Mi0uODMzIDIuNDg1LTIuMjYyIDIuOTU4LTMuODFMNjUuMDY2LjEwOGMtMS40Mi0uMjM4LTIuOTU5LS4xMTktNC4yNi43MTVMMTEuMTA0IDI5LjYzOWw1My42MDYgOTguMzU1Yy43MS0uMTIgMS41NC0uMzU4IDIuMjUtLjcxNXoiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIzNC41MTMiIHgyPSIyNy4xNTciIHkxPSIxNS41MzUiIHkyPSIzMC40NDgiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyOS4yNDIgLTczLjcxNSkgc2NhbGUoNi4xODUyMykiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBzdG9wLWNvbG9yPSIjM0Y4NzNGIi8+PHN0b3Agb2Zmc2V0PSIuMzMiIHN0b3AtY29sb3I9IiMzRjhCM0QiLz48c3RvcCBvZmZzZXQ9Ii42MzciIHN0b3AtY29sb3I9IiMzRTk2MzgiLz48c3RvcCBvZmZzZXQ9Ii45MzQiIHN0b3AtY29sb3I9IiMzREE5MkUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzREFFMkIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDE9IjMwLjAwOSIgeDI9IjUwLjUzMyIgeTE9IjIzLjM1OSIgeTI9IjguMjg4IiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjkuMjQyIC03My43MTUpIHNjYWxlKDYuMTg1MjMpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIuMTM4IiBzdG9wLWNvbG9yPSIjM0Y4NzNGIi8+PHN0b3Agb2Zmc2V0PSIuNDAyIiBzdG9wLWNvbG9yPSIjNTJBMDQ0Ii8+PHN0b3Agb2Zmc2V0PSIuNzEzIiBzdG9wLWNvbG9yPSIjNjRCNzQ5Ii8+PHN0b3Agb2Zmc2V0PSIuOTA4IiBzdG9wLWNvbG9yPSIjNkFCRjRCIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImMiIHgxPSIyMS45MTciIHgyPSI0MC41NTUiIHkxPSIyMi4yNjEiIHkyPSIyMi4yNjEiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyOS4yNDIgLTczLjcxNSkgc2NhbGUoNi4xODUyMykiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9Ii4wOTIiIHN0b3AtY29sb3I9IiM2QUJGNEIiLz48c3RvcCBvZmZzZXQ9Ii4yODciIHN0b3AtY29sb3I9IiM2NEI3NDkiLz48c3RvcCBvZmZzZXQ9Ii41OTgiIHN0b3AtY29sb3I9IiM1MkEwNDQiLz48c3RvcCBvZmZzZXQ9Ii44NjIiIHN0b3AtY29sb3I9IiMzRjg3M0YiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4K" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSJ1cmwoI2EpIiBkPSJNNjYuOTU4LjgyNWE2LjA3IDYuMDcgMCAwIDAtNi4wMzUgMEwxMS4xMDMgMjkuNzZjLTEuODk1IDEuMDcyLTIuOTYgMy4wOTUtMi45NiA1LjI0djU3Ljk4OGMwIDIuMTQzIDEuMTgzIDQuMTY3IDIuOTU4IDUuMjRsNDkuODIgMjguOTM0YTYuMDcgNi4wNyAwIDAgMCA2LjAzNiAwbDQ5LjgyLTI4LjkzNWMxLjg5NC0xLjA3MiAyLjk1OC0zLjA5NiAyLjk1OC01LjI0VjM1YzAtMi4xNDQtMS4xODMtNC4xNjctMi45NTgtNS4yNHoiLz48cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMTE2Ljg5NyAyOS43NiA2Ni44NDEuODI1QTguMTYxIDguMTYxIDAgMCAwIDY1LjMwMi4yM0w5LjIxIDk2Ljc5OGE2LjI1MSA2LjI1MSAwIDAgMCAxLjY1NyAxLjQzbDUwLjA1NyAyOC45MzRjMS40Mi44MzMgMy4wNzYgMS4wNzIgNC42MTUuNTk1bDUyLjY2LTk2LjkyNWEzLjcwMiAzLjcwMiAwIDAgMC0xLjMwMi0xLjA3MnoiLz48cGF0aCBmaWxsPSJ1cmwoI2MpIiBkPSJNMTE2Ljg5OCA5OC4yMjVjMS40Mi0uODMzIDIuNDg1LTIuMjYyIDIuOTU4LTMuODFMNjUuMDY2LjEwOGMtMS40Mi0uMjM4LTIuOTU5LS4xMTktNC4yNi43MTVMMTEuMTA0IDI5LjYzOWw1My42MDYgOTguMzU1Yy43MS0uMTIgMS41NC0uMzU4IDIuMjUtLjcxNXoiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIzNC41MTMiIHgyPSIyNy4xNTciIHkxPSIxNS41MzUiIHkyPSIzMC40NDgiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyOS4yNDIgLTczLjcxNSkgc2NhbGUoNi4xODUyMykiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBzdG9wLWNvbG9yPSIjM0Y4NzNGIi8+PHN0b3Agb2Zmc2V0PSIuMzMiIHN0b3AtY29sb3I9IiMzRjhCM0QiLz48c3RvcCBvZmZzZXQ9Ii42MzciIHN0b3AtY29sb3I9IiMzRTk2MzgiLz48c3RvcCBvZmZzZXQ9Ii45MzQiIHN0b3AtY29sb3I9IiMzREE5MkUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzREFFMkIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDE9IjMwLjAwOSIgeDI9IjUwLjUzMyIgeTE9IjIzLjM1OSIgeTI9IjguMjg4IiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjkuMjQyIC03My43MTUpIHNjYWxlKDYuMTg1MjMpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIuMTM4IiBzdG9wLWNvbG9yPSIjM0Y4NzNGIi8+PHN0b3Agb2Zmc2V0PSIuNDAyIiBzdG9wLWNvbG9yPSIjNTJBMDQ0Ii8+PHN0b3Agb2Zmc2V0PSIuNzEzIiBzdG9wLWNvbG9yPSIjNjRCNzQ5Ii8+PHN0b3Agb2Zmc2V0PSIuOTA4IiBzdG9wLWNvbG9yPSIjNkFCRjRCIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImMiIHgxPSIyMS45MTciIHgyPSI0MC41NTUiIHkxPSIyMi4yNjEiIHkyPSIyMi4yNjEiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyOS4yNDIgLTczLjcxNSkgc2NhbGUoNi4xODUyMykiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9Ii4wOTIiIHN0b3AtY29sb3I9IiM2QUJGNEIiLz48c3RvcCBvZmZzZXQ9Ii4yODciIHN0b3AtY29sb3I9IiM2NEI3NDkiLz48c3RvcCBvZmZzZXQ9Ii41OTgiIHN0b3AtY29sb3I9IiM1MkEwNDQiLz48c3RvcCBvZmZzZXQ9Ii44NjIiIHN0b3AtY29sb3I9IiMzRjg3M0YiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4K" x="20" y="12" width="56" height="56"/>
+    </g>
+    <clipPath id="drop-nodejs">
+      <rect x="0" y="70" width="96" height="48"/>
+    </clipPath>
+    <g clip-path="url(#drop-nodejs)">
+      <text class="label" x="48" y="96" text-anchor="middle">Node.js</text>
+    </g>
+  </a>
+</svg>
