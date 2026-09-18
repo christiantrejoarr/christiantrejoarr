@@ -1,10 +1,9 @@
 <div align="center">
 
-# Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code.
-
-
 
 ## About me
+
+# Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code.
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=F7B801&center=true&vCenter=true&width=700&lines=Quisiera+lokiar+como+ustedes;pero+yo+ya+abuse+suficiente+de+la+bida+recia" alt="About me"/>
 
