@@ -10,10 +10,149 @@ const BAR_Y = 420;
 const NUM_W = 13 * SCALE;
 const NUM_H = 16 * SCALE;
 const CYCLE = 5;
+const BRICK_W = 72;
+const BRICK_H = 220;
 
 function uri(name) {
   const filePath = path.join(SPRITE_DIR, `${name}.png`);
   return `data:image/png;base64,${fs.readFileSync(filePath).toString("base64")}`;
+}
+
+const STACK_DIR = path.join(__dirname, "..", "assets", "stack");
+
+function stackLogoUri(id) {
+  const file = path.join(STACK_DIR, `${id}.svg`);
+  const match = fs.readFileSync(file, "utf8").match(
+    /href="(data:image\/svg\+xml;base64,[^"]+)"/
+  );
+  if (!match) {
+    throw new Error(`No encontre el logo de ${id}`);
+  }
+  return match[1];
+}
+
+const HUD_PX = 2;
+
+const HUD_DIGITS = {
+  0: ["111", "101", "101", "101", "111"],
+  1: ["010", "110", "010", "010", "111"],
+  2: ["111", "001", "111", "100", "111"],
+  3: ["111", "001", "111", "001", "111"],
+  4: ["101", "101", "111", "001", "001"],
+  5: ["111", "100", "111", "001", "111"],
+  6: ["111", "100", "111", "101", "111"],
+  7: ["111", "001", "001", "001", "001"],
+  8: ["111", "101", "111", "101", "111"],
+  9: ["111", "101", "111", "001", "111"],
+  "/": ["001", "001", "010", "100", "100"],
+  "%": ["101", "001", "010", "100", "101"],
+};
+
+const HUD_LETTERS = {
+  A: ["010", "101", "111", "101", "101"],
+  C: ["111", "100", "100", "100", "111"],
+  E: ["111", "100", "111", "100", "111"],
+  G: ["111", "100", "101", "101", "111"],
+  J: ["001", "001", "001", "101", "111"],
+  L: ["100", "100", "100", "100", "111"],
+  N: ["101", "111", "111", "101", "101"],
+  R: ["110", "101", "110", "101", "101"],
+  S: ["111", "100", "111", "001", "111"],
+  T: ["111", "010", "010", "010", "010"],
+};
+
+function hudGlyph(ch) {
+  if (ch === " ") return ["000", "000", "000", "000", "000"];
+  if (HUD_DIGITS[ch]) return HUD_DIGITS[ch];
+  if (HUD_LETTERS[ch]) return HUD_LETTERS[ch];
+  return ["000", "000", "000", "000", "000"];
+}
+
+function pixelGlyph(glyph, x, y, color) {
+  const rects = [];
+  glyph.forEach((row, rowIndex) => {
+    [...row].forEach((bit, colIndex) => {
+      if (bit !== "1") return;
+      rects.push(
+        `<rect x="${x + colIndex * HUD_PX}" y="${y + rowIndex * HUD_PX}" width="${HUD_PX}" height="${HUD_PX}" fill="${color}" shape-rendering="crispEdges"/>`
+      );
+    });
+  });
+  return rects.join("");
+}
+
+function pixelText(text, x, y, color) {
+  let cursor = x;
+  const parts = [];
+  for (const ch of text) {
+    const glyph = hudGlyph(ch);
+    parts.push(pixelGlyph(glyph, cursor, y, color));
+    cursor += (glyph[0].length + 1) * HUD_PX;
+  }
+  return { svg: parts.join(""), width: cursor - x };
+}
+
+function pixelTextRight(text, rightX, y, color) {
+  let width = 0;
+  for (const ch of text) {
+    width += (hudGlyph(ch)[0].length + 1) * HUD_PX;
+  }
+  return pixelText(text, rightX - width + HUD_PX, y, color).svg;
+}
+
+function skillPanel() {
+  const labelX = 278 * SCALE;
+  const slashX = 294 * SCALE;
+  const pctRight = 314 * SCALE;
+  const row0 = BAR_Y + 6 * SCALE;
+  const rowH = 6 * SCALE;
+  const yellow = "#ffcc00";
+  const gray = "#c6c6c6";
+  const slash = "#8a8a8a";
+  const skills = [
+    { name: "ANGL", pct: 82 },
+    { name: "REAC", pct: 76 },
+    { name: "JS", pct: 78 },
+    { name: "TS", pct: 84 },
+  ];
+  const rows = skills
+    .map((skill, i) => {
+      const y = row0 + i * rowH;
+      return `<g>
+      ${pixelText(skill.name.padEnd(4, " "), labelX, y, gray).svg}
+      ${pixelGlyph(HUD_DIGITS["/"], slashX, y, slash)}
+      ${pixelTextRight(`${skill.pct}%`, pctRight, y, yellow)}
+    </g>`;
+    })
+    .join("\n    ");
+  return `<g clip-path="url(#clipSkills)">
+    ${rows}
+  </g>
+  `;
+}
+
+function armsLogos(armsX) {
+  const slots = [
+    { id: "html5", col: 0, row: 0 },
+    { id: "sass", col: 1, row: 0 },
+    { id: "typescript", col: 2, row: 0 },
+    { id: "javascript", col: 0, row: 1 },
+    { id: "angular", col: 1, row: 1 },
+    { id: "react", col: 2, row: 1 },
+  ];
+  const originX = 3;
+  const originY = 2;
+  const gapX = 12;
+  const gapY = 11;
+  const slotW = 9 * SCALE;
+  const slotH = 6.5 * SCALE;
+  return slots
+    .map((slot) => {
+      const x = armsX + (originX + slot.col * gapX) * SCALE;
+      const y = BAR_Y + (originY + slot.row * gapY + (slot.row === 0 ? 1.8 : 0)) * SCALE;
+      return `<image href="${stackLogoUri(slot.id)}" x="${x}" y="${y}" width="${slotW}" height="${slotH}" preserveAspectRatio="xMidYMid meet"/>`;
+    })
+    .join("\n  ");
 }
 
 function image(name, x, y, width, height, extra = "") {
@@ -60,6 +199,7 @@ function pistolSprite(name, width, height) {
 }
 
 const RUN_DUR = 0.4;
+const FLOOR_DUR = 1.25;
 const OVERSCAN = 140;
 
 function lerp(a, b, t) {
@@ -70,23 +210,27 @@ function wallRunStrips({
   x0,
   x1,
   farX,
+  horizon,
   fill,
-  count = 24,
-  farScale = 0.26,
-  nearScale = 1.08,
+  count = 40,
+  farScale = 0.28,
+  nearScale = 1.18,
 }) {
-  const width = x1 - x0;
-  const step = width / count;
-  const y0 = -OVERSCAN / farScale;
-  const rectH = (VIEW_H + OVERSCAN * 2) / farScale;
+  const width = Math.abs(x1 - x0);
+  const step = (x1 - x0) / count;
   const chunks = [];
   for (let i = 0; i < count; i += 1) {
     const x = x0 + i * step;
     const mid = x + step / 2;
     const t = Math.min(1, Math.abs(mid - farX) / width);
-    const sy = lerp(farScale, nearScale, t);
+    const s = lerp(farScale, nearScale, t);
+    const inv = 1 / s;
+    const localX = farX + (x - farX) * inv;
+    const localW = Math.abs(step) * inv + 4 * inv;
+    const localY = horizon + (-OVERSCAN - horizon) * inv;
+    const localH = (VIEW_H + OVERSCAN * 2) * inv;
     chunks.push(
-      `<g transform="scale(1 ${sy.toFixed(4)})"><rect x="${x.toFixed(2)}" y="${y0.toFixed(1)}" width="${(step + 1.6).toFixed(2)}" height="${rectH.toFixed(1)}" fill="${fill}"/></g>`
+      `<g transform="translate(${farX} ${horizon}) scale(${s.toFixed(4)}) translate(${-farX} ${-horizon})"><rect x="${localX.toFixed(2)}" y="${localY.toFixed(1)}" width="${localW.toFixed(2)}" height="${localH.toFixed(1)}" fill="${fill}"/></g>`
     );
   }
   return chunks.join("");
@@ -97,8 +241,8 @@ function floorRunStrips({
   y1,
   fill,
   count = 24,
-  farScale = 0.28,
-  nearScale = 1.18,
+  farScale = 0.48,
+  nearScale = 1.06,
 }) {
   const height = y1 - y0;
   const step = height / count;
@@ -112,6 +256,25 @@ function floorRunStrips({
     );
   }
   return chunks.join("");
+}
+
+function phpWings(phpW, phpH) {
+  const wingW = phpW * 0.95;
+  const wingH = phpH * 1.38;
+  const flap = 0.32;
+  const jointY = -phpH * 0.06;
+  const leftX = -phpW * 0.1;
+  const rightX = phpW * 0.1;
+  return `<g>
+      <g transform="translate(${leftX} ${jointY})">
+        <animateTransform attributeName="transform" type="rotate" values="-8; 24; -8" keyTimes="0;0.48;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${flap}s" additive="sum" repeatCount="indefinite"/>
+        ${image("wing-left", -wingW, -wingH * 0.2, wingW, wingH, ' preserveAspectRatio="xMaxYMid meet"')}
+      </g>
+      <g transform="translate(${rightX} ${jointY})">
+        <animateTransform attributeName="transform" type="rotate" values="8; -24; 8" keyTimes="0;0.48;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${flap}s" additive="sum" repeatCount="indefinite"/>
+        ${image("wing-right", 0, -wingH * 0.2, wingW, wingH, ' preserveAspectRatio="xMinYMid meet"')}
+      </g>
+    </g>`;
 }
 
 function phpHitFx(cycle) {
@@ -153,26 +316,90 @@ function phpHitFx(cycle) {
     </g>`;
 }
 
+function isoDate(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function lastYearCells(days) {
+  const byDate = new Map((days || []).map((day) => [day.date, day]));
+  const dates = [...byDate.keys()].sort();
+  if (!dates.length) return { weekCount: 0, cells: [] };
+  const first = new Date(`${dates[0]}T00:00:00Z`);
+  const last = new Date(`${dates[dates.length - 1]}T00:00:00Z`);
+  const mondayOffset = (first.getUTCDay() + 6) % 7;
+  const start = new Date(first);
+  start.setUTCDate(start.getUTCDate() - mondayOffset);
+  const weekCount = Math.floor((last - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+  const cells = [];
+  for (let week = 0; week < weekCount; week += 1) {
+    for (let dow = 0; dow < 7; dow += 1) {
+      const date = new Date(start);
+      date.setUTCDate(start.getUTCDate() + week * 7 + dow);
+      if (date < first || date > last) continue;
+      const key = isoDate(date);
+      const hit = byDate.get(key);
+      cells.push({
+        week,
+        dow,
+        count: Number(hit?.count || 0),
+        level: Number(hit?.level || 0),
+      });
+    }
+  }
+  return { weekCount, cells };
+}
+
+function contributionSky(days, wallL, wallR, ceilY, horizon, skyPad) {
+  const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
+  const x = wallL - skyPad;
+  const y = ceilY - skyPad;
+  const w = wallR - wallL + skyPad * 2;
+  const h = horizon - ceilY + skyPad * 2;
+  const calendar = lastYearCells(days);
+  const weeks = Math.max(calendar.weekCount, 53);
+  const rows = 7;
+  const gap = 1.15;
+  const margin = 12;
+  const graphW = wallR - wallL - margin * 2;
+  const cell = (graphW - gap * (weeks - 1)) / weeks;
+  const graphH = cell * rows + gap * (rows - 1);
+  const gx = wallL + margin;
+  const gy = ceilY + Math.max(8, (horizon - ceilY - graphH) / 2);
+  const squares = calendar.cells
+    .map((item) => {
+      const cx = gx + item.week * (cell + gap);
+      const cy = gy + item.dow * (cell + gap);
+      const fill = colors[item.level] || colors[0];
+      const pulse =
+        item.level >= 3
+          ? `<animate attributeName="opacity" values="1;0.72;1" dur="${2.2 + (item.week % 4) * 0.25}s" repeatCount="indefinite"/>`
+          : "";
+      return `<rect x="${cx.toFixed(2)}" y="${cy.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" rx="1" fill="${fill}">${pulse}</rect>`;
+    })
+    .join("");
+  return `<g>
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#010409"/>
+      ${squares}
+    </g>`;
+}
+
 async function fetchContributions() {
   const response = await fetch(
-    `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=all`,
+    `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`,
     { headers: { "User-Agent": "christiantrejoarr-doom-hud" } }
   );
   if (!response.ok) {
     throw new Error(`No pude leer contribuciones (${response.status})`);
   }
   const data = await response.json();
-  const total = Object.values(data.total || {}).reduce(
-    (sum, value) => sum + Number(value || 0),
-    0
-  );
-  if (!Number.isFinite(total)) {
+  const ammo = Number(data.total?.lastYear);
+  if (!Number.isFinite(ammo)) {
     throw new Error("El total de contribuciones no es valido");
   }
-  return total;
+  return { ammo, days: data.contributions || [] };
 }
 
-function renderDoom(ammo) {
+function renderDoom(ammo, days) {
   const ammoY = 171 * SCALE;
   const faceX = 145 * SCALE;
   const faceY = 168 * SCALE;
@@ -190,10 +417,12 @@ function renderDoom(ammo) {
   const flashY = fire.y - flashH * 0.22;
   const phpW = 176;
   const phpH = 176;
-  const wallL = 236;
-  const wallR = 564;
-  const horizon = 200;
-  const skyPad = 96;
+  const wallL = 148;
+  const wallR = 652;
+  const horizon = 280;
+  const ceilY = 115;
+  const vanishY = (ceilY + horizon) / 2;
+  const skyPad = 80;
 
   const fireWin = [[0.0, 0.05]];
   const cockDown = [[0.05, 0.10]];
@@ -208,16 +437,20 @@ function renderDoom(ammo) {
   <!-- contributions: ${ammo} -->
   <defs>
     <pattern id="floor" patternUnits="userSpaceOnUse" width="160" height="160">
-      <animateTransform attributeName="patternTransform" type="translate" values="0 0; 0 160" dur="${RUN_DUR}s" repeatCount="indefinite"/>
+      <animateTransform attributeName="patternTransform" type="translate" values="0 0; 0 160" dur="${FLOOR_DUR}s" repeatCount="indefinite"/>
       ${image("FLOOR7_1", 0, 0, 160, 160)}
     </pattern>
-    <pattern id="brickLeft" patternUnits="userSpaceOnUse" width="160" height="160">
-      <animateTransform attributeName="patternTransform" type="translate" values="0 0; -160 0" dur="${RUN_DUR}s" repeatCount="indefinite"/>
-      ${image("BROWN1", 0, 0, 160, 160)}
+    <pattern id="brickLeft" patternUnits="userSpaceOnUse" width="${BRICK_W}" height="${BRICK_H}">
+      <animateTransform attributeName="patternTransform" type="translate" values="0 0; -${BRICK_W} 0" dur="${RUN_DUR}s" repeatCount="indefinite"/>
+      ${image("W28_5", 0, 0, BRICK_W, BRICK_H, ' preserveAspectRatio="none"')}
     </pattern>
-    <pattern id="brickRight" patternUnits="userSpaceOnUse" width="160" height="160">
-      <animateTransform attributeName="patternTransform" type="translate" values="0 0; 160 0" dur="${RUN_DUR}s" repeatCount="indefinite"/>
-      ${image("BROWN1", 0, 0, 160, 160)}
+    <pattern id="brickRight" patternUnits="userSpaceOnUse" width="${BRICK_W}" height="${BRICK_H}">
+      <animateTransform attributeName="patternTransform" type="translate" values="0 0; ${BRICK_W} 0" dur="${RUN_DUR}s" repeatCount="indefinite"/>
+      ${image("W28_5", 0, 0, BRICK_W, BRICK_H, ' preserveAspectRatio="none"')}
+    </pattern>
+    <pattern id="ceiling" patternUnits="userSpaceOnUse" width="160" height="160">
+      <animateTransform attributeName="patternTransform" type="translate" values="0 0; 0 -160" dur="${FLOOR_DUR}s" repeatCount="indefinite"/>
+      ${image("W28_5", 0, 0, 160, 160, ' preserveAspectRatio="none"')}
     </pattern>
     <clipPath id="view">
       <rect width="${WIDTH}" height="${VIEW_H}"/>
@@ -225,11 +458,17 @@ function renderDoom(ammo) {
     <clipPath id="clipFloor">
       <polygon points="-${OVERSCAN},${VIEW_H + OVERSCAN} 0,${VIEW_H} ${wallL},${horizon} ${wallR},${horizon} ${WIDTH},${VIEW_H} ${WIDTH + OVERSCAN},${VIEW_H + OVERSCAN}"/>
     </clipPath>
+    <clipPath id="clipCeiling">
+      <polygon points="-${OVERSCAN},-${OVERSCAN} 0,0 ${wallL},${ceilY} ${wallR},${ceilY} ${WIDTH},0 ${WIDTH + OVERSCAN},-${OVERSCAN}"/>
+    </clipPath>
     <clipPath id="clipLeft">
-      <polygon points="-${OVERSCAN},-${OVERSCAN} ${wallL},-${OVERSCAN} ${wallL},${horizon} 0,${VIEW_H} -${OVERSCAN},${VIEW_H + OVERSCAN}"/>
+      <polygon points="-${OVERSCAN},-${OVERSCAN} 0,0 ${wallL},${ceilY} ${wallL},${horizon} 0,${VIEW_H} -${OVERSCAN},${VIEW_H + OVERSCAN}"/>
     </clipPath>
     <clipPath id="clipRight">
-      <polygon points="${WIDTH + OVERSCAN},-${OVERSCAN} ${wallR},-${OVERSCAN} ${wallR},${horizon} ${WIDTH},${VIEW_H} ${WIDTH + OVERSCAN},${VIEW_H + OVERSCAN}"/>
+      <polygon points="${WIDTH + OVERSCAN},-${OVERSCAN} ${WIDTH},0 ${wallR},${ceilY} ${wallR},${horizon} ${WIDTH},${VIEW_H} ${WIDTH + OVERSCAN},${VIEW_H + OVERSCAN}"/>
+    </clipPath>
+    <clipPath id="clipSkills">
+      <rect x="${276 * SCALE}" y="${BAR_Y + 3 * SCALE}" width="${42 * SCALE}" height="${26 * SCALE}"/>
     </clipPath>
   </defs>
 
@@ -237,22 +476,22 @@ function renderDoom(ammo) {
 
   <g clip-path="url(#view)">
     <g>
-      <animateTransform attributeName="transform" type="translate" values="-7 2; 0 -3; 7 2; 0 -3; -7 2" keyTimes="0;0.25;0.5;0.75;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1; 0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
-      ${image("SKY1", wallL - skyPad, -skyPad, wallR - wallL + skyPad * 2, horizon + skyPad * 1.5, ' preserveAspectRatio="xMidYMid slice"')}
+      <animateTransform attributeName="transform" type="translate" values="0 -16; 0 14; 0 -16" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
+      ${contributionSky(days, wallL, wallR, ceilY, horizon, skyPad)}
     </g>
     <g>
-      <animateTransform attributeName="transform" type="rotate" values="-2.4 ${WIDTH / 2} ${horizon}; 2.4 ${WIDTH / 2} ${horizon}; -2.4 ${WIDTH / 2} ${horizon}" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
-      <g>
-        <animateTransform attributeName="transform" type="translate" values="-5 10; 0 0; 5 10; 0 0; -5 10" keyTimes="0;0.25;0.5;0.75;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1; 0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" additive="sum" repeatCount="indefinite"/>
-        <g clip-path="url(#clipFloor)">
-          ${floorRunStrips({ y0: horizon, y1: VIEW_H + OVERSCAN, fill: "url(#floor)" })}
-        </g>
-        <g clip-path="url(#clipLeft)">
-          ${wallRunStrips({ x0: -OVERSCAN, x1: wallL, farX: wallL, fill: "url(#brickLeft)" })}
-        </g>
-        <g clip-path="url(#clipRight)">
-          ${wallRunStrips({ x0: wallR, x1: WIDTH + OVERSCAN, farX: wallR, fill: "url(#brickRight)" })}
-        </g>
+      <animateTransform attributeName="transform" type="translate" values="0 -16; 0 14; 0 -16" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
+      <g clip-path="url(#clipCeiling)">
+        ${floorRunStrips({ y0: -OVERSCAN, y1: ceilY, fill: "url(#ceiling)", farScale: 1.06, nearScale: 0.48 })}
+      </g>
+      <g clip-path="url(#clipFloor)">
+        ${floorRunStrips({ y0: horizon, y1: VIEW_H + OVERSCAN, fill: "url(#floor)" })}
+      </g>
+      <g clip-path="url(#clipLeft)">
+        ${wallRunStrips({ x0: -OVERSCAN, x1: wallL, farX: wallL, horizon: vanishY, fill: "url(#brickLeft)" })}
+      </g>
+      <g clip-path="url(#clipRight)">
+        ${wallRunStrips({ x0: wallR, x1: WIDTH + OVERSCAN, farX: wallR, horizon: vanishY, fill: "url(#brickRight)" })}
       </g>
     </g>
     <g>
@@ -263,6 +502,7 @@ function renderDoom(ammo) {
           <animateTransform attributeName="transform" type="scale" values="1; 1.14; 0.88; 1.08; 1" dur="4.4s" additive="sum" repeatCount="indefinite"/>
           <g>
             <animateTransform attributeName="transform" type="translate" values="0 0; 12 -10; -8 6; 5 -3; 0 0; 0 0" keyTimes="0;0.006;0.016;0.03;0.07;1" dur="${CYCLE}s" additive="sum" repeatCount="indefinite"/>
+            ${phpWings(phpW, phpH)}
             ${image("php", -phpW / 2, -phpH / 2, phpW, phpH, ' preserveAspectRatio="xMidYMid meet"')}
             ${phpHitFx(CYCLE)}
           </g>
@@ -301,9 +541,11 @@ function renderDoom(ammo) {
 
   ${image("STBAR", 0, BAR_Y, WIDTH, 80)}
   ${image("STARMS", armsX, BAR_Y, 38 * SCALE, 32 * SCALE)}
+  ${armsLogos(armsX)}
   ${numberRow(ammo, 44 * SCALE, ammoY)}
   ${percent(99, 90 * SCALE, ammoY)}
   ${percent(100, 221 * SCALE, ammoY)}
+  ${skillPanel()}
   <g>
     <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.28;0.33;0.66;0.71" dur="2.4s" repeatCount="indefinite"/>
     ${image("mugshot-00", faceX, faceY, faceW, faceH)}
@@ -321,10 +563,11 @@ function renderDoom(ammo) {
 }
 
 async function main() {
-  const ammo = await fetchContributions();
+  const { ammo, days } = await fetchContributions();
   const outputPath = path.join(__dirname, "..", "assets", "doom-play.svg");
-  fs.writeFileSync(outputPath, renderDoom(ammo), "utf8");
-  console.log(`DOOM HUD actualizado con sprites de Freedoom: AMMO = ${ammo}`);
+  fs.writeFileSync(outputPath, renderDoom(ammo, days), "utf8");
+  const filled = (days || []).filter((day) => Number(day.count) > 0).length;
+  console.log(`DOOM HUD actualizado: AMMO = ${ammo}, dias activos = ${filled}`);
 }
 
 main().catch((error) => {

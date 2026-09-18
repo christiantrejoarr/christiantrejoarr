@@ -13,7 +13,7 @@ const LOGOS = [
   {
     id: "gmail",
     name: "Gmail",
-    href: "mailto:christiantrejoarroyo@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=christiantrejoarroyo@gmail.com",
     inlineSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#4285F4" d="M1.5 6.375v11.25c0 .828.672 1.5 1.5 1.5H6V10.5L1.5 7.125z"/><path fill="#34A853" d="M18 19.125h3c.828 0 1.5-.672 1.5-1.5V6.375L18 10.5z"/><path fill="#EA4335" d="M18 5.25v5.25L12 14.625 6 10.5V5.25L12 9.75z"/><path fill="#FBBC04" d="M22.5 6.375 18 10.5V5.25l2.4-1.8c.93-.698 2.1.052 2.1 1.125z"/><path fill="#C5221F" d="M1.5 6.375c0-1.073 1.17-1.823 2.1-1.125L6 5.25v5.25z"/></svg>`,
   },
   {

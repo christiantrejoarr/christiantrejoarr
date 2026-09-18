@@ -81,7 +81,7 @@ public static class Mugshot {
       g.InterpolationMode = InterpolationMode.NearestNeighbor;
       g.PixelOffsetMode = PixelOffsetMode.Half;
       g.SmoothingMode = SmoothingMode.None;
-      DrawEye(g, face, 6, 13, 5, 4, 28.6f, 44.8f, 1.4f, 18f);
+      DrawEye(g, face, 6, 13, 5, 4, 28.6f, 46.3f, 1.4f, 18f);
       DrawEye(g, face, 13, 13, 5, 4, 44.8f, 43.8f, 1.4f, -16f);
     }
     return dst;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="118" viewBox="0 0 96 118" role="img" aria-label="Gmail">
   <title>Gmail</title>
-  <a href="mailto:christiantrejoarroyo@gmail.com" target="_blank" rel="noopener noreferrer">
+  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=christiantrejoarroyo@gmail.com" target="_blank" rel="noopener noreferrer">
     <rect width="96" height="118" fill="transparent"/>
     <g transform="translate(48 40)">
       <g>
