@@ -144,80 +144,103 @@ const LOGOS = [
   },
 ];
 
-function renderLogo({ id, name, href, dataUri }) {
+function hash(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i += 1) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function timingFor(id, index) {
+  const h = hash(id);
+  const begin = ((h % 83) / 10 + index * 0.31).toFixed(2);
+  const dur = 8 + (h % 7);
+  return { begin, dur };
+}
+
+function existingDataUri(id) {
+  const file = path.join(OUT_DIR, `${id}.svg`);
+  if (!fs.existsSync(file)) return null;
+  const match = fs.readFileSync(file, "utf8").match(
+    /href="(data:image\/svg\+xml;base64,[^"]+)"/
+  );
+  return match ? match[1] : null;
+}
+
+function renderLogo({ id, name, href, dataUri, begin, dur }) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="118" viewBox="0 0 96 118" role="img" aria-label="${name}">
   <title>${name}</title>
-  <style>
-    .icon {
-      transform-origin: 48px 40px;
-      transform-box: fill-box;
-    }
-    .label {
-      fill: #c9d1d9;
-      font-family: Segoe UI, Arial, sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(-22px);
-      transition: opacity 0.12s linear, transform 0.35s cubic-bezier(0.18, 1.4, 0.32, 1);
-    }
-    svg:hover .icon,
-    a:hover .icon {
-      animation: dogshake 0.55s ease-in-out;
-    }
-    svg:hover .label,
-    a:hover .label {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.14s;
-    }
-    @keyframes dogshake {
-      0% { transform: rotate(0deg) scale(1, 1); }
-      12% { transform: rotate(-22deg) scale(1.08, 0.9); }
-      24% { transform: rotate(22deg) scale(0.92, 1.08); }
-      36% { transform: rotate(-18deg) scale(1.06, 0.92); }
-      48% { transform: rotate(18deg) scale(0.94, 1.06); }
-      60% { transform: rotate(-10deg) scale(1.03, 0.97); }
-      72% { transform: rotate(10deg) scale(0.97, 1.03); }
-      84% { transform: rotate(-4deg) scale(1.01, 0.99); }
-      100% { transform: rotate(0deg) scale(1, 1); }
-    }
-  </style>
   <a href="${href}" target="_blank" rel="noopener noreferrer">
     <rect width="96" height="118" fill="transparent"/>
-    <g class="icon">
-      <image href="${dataUri}" xlink:href="${dataUri}" x="20" y="12" width="56" height="56"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        values="0 0;0 0;0 10;0 58;0 118;0 118;0 -64;0 0;0 0"
+        keyTimes="0;0.14;0.18;0.28;0.36;0.40;0.41;0.48;1"
+        dur="${dur}s" begin="${begin}s" repeatCount="indefinite"
+        calcMode="spline"
+        keySplines="0 0 1 1;0.42 0 0.9 0.3;0.2 0.8 0.4 1;0.4 0 1 1;0 0 1 1;0 0 1 1;0.2 0.8 0.2 1;0 0 1 1"/>
+      <g transform="translate(48 40)">
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+            values="0;0;-18;16;-10;8;0;0;0"
+            keyTimes="0;0.14;0.18;0.22;0.26;0.32;0.38;0.48;1"
+            dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+          <image href="${dataUri}" xlink:href="${dataUri}" x="-28" y="-28" width="56" height="56"/>
+        </g>
+      </g>
     </g>
     <clipPath id="drop-${id}">
-      <rect x="0" y="70" width="96" height="48"/>
+      <rect x="0" y="68" width="96" height="50"/>
     </clipPath>
     <g clip-path="url(#drop-${id})">
-      <text class="label" x="48" y="96" text-anchor="middle">${name}</text>
+      <g opacity="0">
+        <animate attributeName="opacity"
+          values="0;0;1;1;0;0"
+          keyTimes="0;0.10;0.16;0.58;0.66;1"
+          dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+        <g>
+          <animateTransform attributeName="transform" type="translate"
+            values="0 -28;0 -28;0 0;0 0;0 22;0 22"
+            keyTimes="0;0.10;0.18;0.58;0.66;1"
+            dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+          <text fill="#c9d1d9" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" x="48" y="96" text-anchor="middle">${name}</text>
+        </g>
+      </g>
     </g>
   </a>
 </svg>
 `;
 }
 
+async function dataUriFor(logo) {
+  const cached = existingDataUri(logo.id);
+  if (cached) return cached;
+  const response = await fetch(logo.src, {
+    headers: { "User-Agent": "christiantrejoarr-stack-logos" },
+  });
+  if (!response.ok) {
+    throw new Error(`No pude descargar ${logo.name} (${response.status})`);
+  }
+  return `data:image/svg+xml;base64,${Buffer.from(
+    await response.arrayBuffer()
+  ).toString("base64")}`;
+}
+
 async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  for (const logo of LOGOS) {
-    const response = await fetch(logo.src, {
-      headers: { "User-Agent": "christiantrejoarr-stack-logos" },
-    });
-    if (!response.ok) {
-      throw new Error(`No pude descargar ${logo.name} (${response.status})`);
-    }
-    const dataUri = `data:image/svg+xml;base64,${Buffer.from(
-      await response.arrayBuffer()
-    ).toString("base64")}`;
+  for (let i = 0; i < LOGOS.length; i += 1) {
+    const logo = LOGOS[i];
+    const dataUri = await dataUriFor(logo);
+    const { begin, dur } = timingFor(logo.id, i);
     fs.writeFileSync(
       path.join(OUT_DIR, `${logo.id}.svg`),
-      renderLogo({ ...logo, dataUri }),
+      renderLogo({ ...logo, dataUri, begin, dur }),
       "utf8"
     );
-    console.log(`listo ${logo.id}.svg`);
+    console.log(`listo ${logo.id}.svg  begin=${begin}s  dur=${dur}s`);
   }
 }
 

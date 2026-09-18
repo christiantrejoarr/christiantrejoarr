@@ -28,13 +28,9 @@ const WANTED = [
   "PISGD0",
   "PISGE0",
   "PISFA0",
-  "TROOA1",
-  "POSSA1",
   "SKY1",
   "BROWN1",
   "FLOOR7_1",
-  "NUKAGE1",
-  "TITLEPIC",
 ];
 
 function decodeFlat(data, palette) {

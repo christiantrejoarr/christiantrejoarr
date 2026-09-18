@@ -116,7 +116,6 @@ $cut = [Mugshot]::KeyAndCrop($orig)
 $cut.Save((Join-Path $outDir "mugshot-base.png"), [System.Drawing.Imaging.ImageFormat]::Png)
 Write-Output "cropped=$($cut.Width)x$($cut.Height)"
 $fitted = [Mugshot]::Fit($cut, 75, 80)
-$fitted.Save((Join-Path $outDir "mugshot.png"), [System.Drawing.Imaging.ImageFormat]::Png)
 foreach ($id in @("00","01","02")) {
   $face = New-Object System.Drawing.Bitmap (Join-Path $outDir "STFST$id.png")
   $framed = [Mugshot]::OverlayEyes($fitted, $face)
