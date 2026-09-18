@@ -36,9 +36,8 @@
   <a href="https://www.linkedin.com/in/christian-trejo-arroyo/" target="_blank" rel="noopener noreferrer">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="56" height="56" alt="LinkedIn"/>
   </a>
+  <br/>LinkedIn
 </p>
-
-<p><a href="https://www.linkedin.com/in/christian-trejo-arroyo/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
 
 ---
 

@@ -1,6 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="DOOM HUD with 26 GitHub contributions as ammo">
-  <!-- contributions: 26 -->
+const fs = require("fs");
+const path = require("path");
+
+const USERNAME = "christiantrejoarr";
+
+async function fetchContributions() {
+  const response = await fetch(
+    `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=all`,
+    { headers: { "User-Agent": "christiantrejoarr-doom-hud" } }
+  );
+  if (!response.ok) {
+    throw new Error(`No pude leer contribuciones (${response.status})`);
+  }
+  const data = await response.json();
+  const total = Object.values(data.total || {}).reduce(
+    (sum, value) => sum + Number(value || 0),
+    0
+  );
+  if (!Number.isFinite(total)) {
+    throw new Error("El total de contribuciones no es valido");
+  }
+  return total;
+}
+
+function renderDoom(ammo) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="DOOM HUD with ${ammo} GitHub contributions as ammo">
+  <!-- contributions: ${ammo} -->
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#121214"/>
@@ -86,7 +111,7 @@
   <rect x="0" y="392" width="800" height="108" fill="#2a2a2a"/>
   <rect x="0" y="392" width="800" height="5" fill="#111"/>
   <rect x="8" y="402" width="124" height="88" fill="#1a1a1a"/>
-  <text x="70" y="436" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="34" fill="#ffff66">26</text>
+  <text x="70" y="436" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="34" fill="#ffff66">${ammo}</text>
   <text x="70" y="478" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="14" fill="#c62828">AMMO</text>
   <rect x="140" y="402" width="150" height="88" fill="#1a1a1a"/>
   <text x="215" y="436" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="34" fill="#ffff66">99%</text>
@@ -106,6 +131,20 @@
   <text x="553" y="478" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="14" fill="#c62828">ARMOR</text>
   <rect x="636" y="402" width="156" height="88" fill="#1a1a1a"/>
   <text x="714" y="430" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="12" fill="#c62828">BULL</text>
-  <text x="714" y="452" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#ffff66">26 / 200</text>
+  <text x="714" y="452" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#ffff66">${ammo} / 200</text>
   <text x="714" y="476" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#8a8a8a">SHELL  0 / 50</text>
 </svg>
+`;
+}
+
+async function main() {
+  const ammo = await fetchContributions();
+  const outputPath = path.join(__dirname, "..", "assets", "doom-play.svg");
+  fs.writeFileSync(outputPath, renderDoom(ammo), "utf8");
+  console.log(`DOOM HUD actualizado: AMMO = ${ammo} contribuciones`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
