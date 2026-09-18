@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="920" height="500" viewBox="0 0 920 500">
-  <rect width="920" height="500" />
+  <rect width="920" height="500" fill="transparent" />
   <path d="M112 22 H848 A42 42 0 0 1 890 64 V186 A42 42 0 0 1 848 228 H236 L108 278 L188 228 H112 A42 42 0 0 1 70 186 V64 A42 42 0 0 1 112 22 Z" fill="#e6e6e6" stroke="#222222" stroke-width="2.5" stroke-linejoin="round"/>
   <text text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="22" fill="#111111">
     <tspan x="480" y="98">Fake profile!!! I'm actually Julian Casablancas the lead</tspan>
