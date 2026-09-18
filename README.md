@@ -2,25 +2,7 @@
 
 # Fake profile!!! I'm actually Julian Casablancas the lead singer of The Strokes and I use this profile to upload code.
 
-<p>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="48" alt="TypeScript"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="48" alt="JavaScript"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" height="48" alt="Angular"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materializecss/materializecss-original.svg" height="48" alt="Materialize"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="48" alt="React"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/reactnative/reactnative-original.svg" height="48" alt="React Native"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ionic/ionic-original.svg" height="48" alt="Ionic"/>
-  &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="48" alt="Node.js"/>
-</p>
 
----
 
 ## About me
 
@@ -191,6 +173,8 @@
 
 My contributions
 
-<img src="./assets/doom-play.svg" width="800" alt="DOOM running on this profile"/>
+<img src="./assets/doom-play.svg" width="800" alt="Freedoom HUD with GitHub contributions as ammo"/>
+
+<p><sub>Sprites de <a href="https://freedoom.github.io/">Freedoom</a>. El AMMO son mis contribuciones de GitHub.</sub></p>
 
 </div>
