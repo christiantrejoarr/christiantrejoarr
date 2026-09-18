@@ -20,17 +20,13 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="48" alt="Node.js"/>
 </p>
 
-<p>
-  <b>TypeScript</b> · <b>JavaScript</b> · <b>Angular</b> · <b>Materialize</b> · <b>React</b> · <b>React Native</b> · <b>Ionic</b> · <b>Node.js</b>
-</p>
-
 ---
 
 ## About me
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=F7B801&center=true&vCenter=true&width=700&lines=Quisiera+lokiar+como+ustedes;pero+yo+ya+abuse+suficiente+de+la+bida+recia" alt="About me"/>
 
-> **Quisiera lokiar como ustedes pero yo ya abuse suficiente de la bida recia**
+> 
 
 ---
 
