@@ -549,7 +549,7 @@ function renderDoom(calendar) {
       ${contributionSky(calendar, wallL, wallR, ceilY, horizon)}
     </g>
     <g>
-      <animateTransform attributeName="transform" type="translate" values="0 -16; 0 14; 0 -16" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 2}s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="-22 14; 0 -16; 22 14; 0 -16; -22 14" keyTimes="0;0.25;0.5;0.75;1" calcMode="spline" keySplines="0.37 0 0.63 1; 0.37 0 0.63 1; 0.37 0 0.63 1; 0.37 0 0.63 1" dur="${RUN_DUR * 3.2}s" repeatCount="indefinite"/>
       <g clip-path="url(#clipCeiling)">
         ${floorRunStrips({ y0: -OVERSCAN, y1: ceilY, fill: "url(#ceiling)", farScale: 1.06, nearScale: 0.48 })}
       </g>
